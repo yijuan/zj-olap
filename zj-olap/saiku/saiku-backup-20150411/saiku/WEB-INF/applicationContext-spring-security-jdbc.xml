@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--+
+	| Application context containing JDBC AuthenticationProvider
+	| implementation.
+	+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+     xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
+              http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd
+			   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider ref="daoAuthenticationProvider" />
+ 	</security:authentication-manager>
+
+	<bean id="daoAuthenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService">
+			<ref bean="userDetailsService" />
+		</property>
+		<property name="passwordEncoder">
+			<ref bean="passwordEncoder" />
+		</property>
+	</bean>
+
+	<bean id="userDetailsService"
+		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<property name="authoritiesByUsernameQuery">
+			<value>
+				<![CDATA[
+				   select * from ( 
+						select 
+								  (select username from user where id =r.user_id ) username,
+								  (select authority from role where id =r.role_id ) authority
+								 from user_role r  
+						) r
+					WHERE r.username = ? ORDER BY authority 
+				]]>
+			</value>
+		</property>
+		<property name="usersByUsernameQuery">
+			<value>
+				<![CDATA[SELECT username, password, enabled FROM user WHERE username = ? ORDER BY username]]>
+			</value>
+		</property>
+	</bean>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/zj_olap" />
+		<property name="username" value="root" />
+		<property name="password" value="root4ywc" />
+	</bean>
+
+  <bean id="passwordEncoder"
+    class="grails.plugin.springsecurity.authentication.encoding.BCryptPasswordEncoder" />
+ 
+
+</beans>

@@ -1,0 +1,673 @@
+<Schema name="&#19994;&#21153;&#22788;" defaultRole="admin">
+  <Cube name="salesCube" caption="&#38144;&#21806;" visible="true" cache="true" enabled="true">
+    <View alias="sales_order_view">
+      <SQL dialect="generic">
+        <![CDATA[select * from sales_order as so where so.status ='ABLE' and so.is_vail=1]]>
+      </SQL>
+    </View>
+    <Dimension type="StandardDimension" visible="true" foreignKey="branch_id" highCardinality="false" name="Branch" caption="&#20998;&#20844;&#21496;">
+      <Hierarchy name="BranchHier" visible="true" hasAll="true" allMemberName="All branch" allMemberCaption="All branch" primaryKey="id" primaryKeyTable="branch" caption="&#20998;&#20844;&#21496;">
+         <Table name="branch">
+         </Table>
+        <Level name="Branch" visible="true" table="branch" column="id" captionColumn="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#20998;&#20844;&#21496;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    
+    
+    <Dimension type="StandardDimension" visible="true" foreignKey="branch_id" highCardinality="false" name="BranchAdmin" caption="&#20998;&#20844;&#21496;">
+      <Hierarchy name="BranchHier" visible="true" hasAll="true" allMemberName="All branch" allMemberCaption="All branch" primaryKey="id" primaryKeyTable="branch" caption="&#20998;&#20844;&#21496;">
+        <Join leftKey="branch_group_id" rightKey="id">
+          <Table name="branch">
+          </Table>
+          <Table name="branch_group">
+          </Table>
+        </Join>
+        <Level name="Branch Group" visible="true" table="branch_group" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#20998;&#20844;&#21496;&#32452;">
+        </Level>
+        <Level name="Branch" visible="true" table="branch" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#20998;&#20844;&#21496;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    
+    
+    <Dimension type="StandardDimension" visible="true" foreignKey="gas_type_id" highCardinality="false" name="Production" caption="&#27833;&#21697;">
+      <Hierarchy name="ProductionHier" visible="true" hasAll="true" allMemberName="All Production" allMemberCaption="&#20840;&#37096;&#27833;&#21697;" primaryKey="id" primaryKeyTable="gas_type">
+        <Join leftKey="category_id" rightKey="id">
+          <Table name="gas_type">
+          </Table>
+          <Table name="category">
+          </Table>
+        </Join>
+        <Level name="Gas Category" visible="true" table="category" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#21697;&#31181;">
+        </Level>
+        <Level name="Gas Type" visible="true" table="gas_type" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#21697;&#21495;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="sales_id" highCardinality="false" name="Sales" caption="&#23458;&#25143;&#32463;&#29702;">
+      <Hierarchy name="SalesHier" visible="true" hasAll="true" primaryKey="id" primaryKeyTable="sales">
+        <Join leftKey="full_time_id" rightKey="id">
+          <Table name="sales" schema="" alias="">
+          </Table>
+          <Table name="sales_full_time" schema="" alias="">
+          </Table>
+        </Join>
+        <Level name="FullTime" visible="true" table="sales_full_time" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#19987;&#12289;&#20860;&#32844;">
+        </Level>
+        <Level name="Sales" visible="true" table="sales" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#23458;&#25143;&#32463;&#29702;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="salingtype_id" highCardinality="false" name="Saling Type" caption="&#38144;&#21806;&#29615;&#33410;">
+      <Hierarchy name="SalingTypeHier" visible="true" hasAll="true" primaryKey="id" caption="&#38144;&#21806;&#29615;&#33410;">
+        <Table name="saling_type">
+        </Table>
+        <Level name="SalingType" visible="true" table="saling_type" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#38144;&#21806;&#29615;&#33410;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="TimeDimension" visible="true" foreignKey="time_by_day_id" highCardinality="false" name="Time" caption="&#26102;&#38388;">
+      <Hierarchy name="TimeHier" visible="true" hasAll="true" allMemberCaption="&#20840;&#37096;" primaryKey="id" caption="&#26102;&#38388;">
+        <Table name="time_by_day">
+        </Table>
+        <Level name="Year" visible="true" column="year" type="Numeric" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never" caption="&#24180;">
+        </Level>
+        <Level name="Quarter" visible="true" column="quarter" type="Numeric" uniqueMembers="false" levelType="TimeQuarters" hideMemberIf="Never" caption="&#23395;&#24230;">
+        </Level>
+        <Level name="Month" visible="true" column="month" type="Numeric" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never" caption="&#26376;">
+        </Level>
+        <Level name="Day" visible="true" column="day" type="Numeric" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never" caption="&#26085;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="TimeDimension" visible="true" foreignKey="month_id" highCardinality="false" name="FinancialMonth" caption="&#32467;&#31639;&#26376;&#24230;">
+      <Hierarchy name="FinancialMonthHier" visible="true" hasAll="true" allMemberCaption="&#20840;&#37096;" primaryKey="id" caption="&#26102;&#38388;">
+        <Table name="financial_month">
+        </Table>
+        <Level name="Year" visible="true" column="year" type="Numeric" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never" caption="&#24180;">
+        </Level>
+        <Level name="Quarter" visible="true" column="quarter" type="Numeric" uniqueMembers="false" levelType="TimeQuarters" hideMemberIf="Never" caption="&#23395;&#24230;">
+        </Level>
+        <Level name="Month" visible="true" column="month" type="Numeric" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never" caption="&#26376;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="customer_id" highCardinality="false" name="Customer" caption="&#23458;&#25143;">
+      <Hierarchy name="CustomerHier" visible="true" hasAll="true" primaryKey="id" primaryKeyTable="customer">
+        <Join leftKey="customer_type_id" rightKey="id">
+          <Table name="customer">
+          </Table>
+          <Join leftKey="level2_id" rightKey="id">
+            <Table name="customer_type_level3">
+            </Table>
+            <Join leftKey="level1_id" rightKey="id">
+              <Table name="customer_type_level2">
+              </Table>
+              <Table name="customer_type">
+              </Table>
+            </Join>
+          </Join>
+        </Join>
+        <Level name="Level1" visible="true" table="customer_type" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#38144;&#21806;&#31867;&#21035;">
+        </Level>
+        <Level name="Level2" visible="true" table="customer_type_level2" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#26426;&#26500;&#29992;&#25143;&#20998;&#31867;">
+        </Level>
+        <Level name="Level3" visible="true" table="customer_type_level3" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#24037;&#19994;&#20998;&#31867;">
+        </Level>
+        <Level name="Customer" visible="true" table="customer" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#23458;&#25143;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="TimeDimension" visible="true" foreignKey="customer_branch_id" highCardinality="false" name="newCustomer" caption="&#26032;&#23458;&#25143;&#24180;&#20221;">
+      <Hierarchy name="newCustomerDate" visible="true" hasAll="true" primaryKey="id" primaryKeyTable="customer_branch" caption="&#24180;&#20221;">
+        <Join leftKey="date_id" rightKey="id">
+        
+          <View alias="customer_branch">
+			      <SQL dialect="generic">
+			        <![CDATA[select * from customer_branch as cb where cb.date_id is not null ]]>
+			      </SQL>
+			    </View>
+          <Table name="time_by_day">
+          </Table>
+        </Join>
+        <Level name="Year" visible="true" table="time_by_day" column="year" type="Numeric" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never" caption="&#24180;">
+        </Level>
+        
+         <Level name="Month" visible="true" table="time_by_day" column="month" type="Numeric" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never" caption="&#26376;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="big_case_id" name="BigCase" caption="&#22823;&#21333;">
+      <Hierarchy name="BigCaseHierarchy" visible="true" hasAll="true" primaryKey="id" caption="&#22823;&#21333;">
+        <Table name="big_case" alias="">
+        </Table>
+        <Level name="BigCase" visible="true" table="big_case" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#26159;&#21542;&#22823;&#21333;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Sales Amount" column="quantity" aggregator="sum" caption="&#38144;&#37327;" visible="true">
+    </Measure>
+    <Measure name="Sales Count" column="id" aggregator="distinct-count" caption="&#25104;&#20132;&#21333;&#25968;" visible="true">
+    </Measure>
+    <Measure name="Income" aggregator="sum" caption="&#38144;&#21806;&#25910;&#20837;" visible="true">
+      <MeasureExpression>
+        <SQL dialect="generic">
+          <![CDATA[quantity * purchasing_unit_price]]>
+        </SQL>
+      </MeasureExpression>
+    </Measure>
+   
+    <Measure name="ListPriceIncome" aggregator="sum" caption="&#25209;&#21457;&#21040;&#20301;&#20215;&#25910;&#20837;" visible="true">
+      <MeasureExpression>
+        <SQL dialect="generic">
+          <![CDATA[list_unit_price * quantity]]>
+        </SQL>
+      </MeasureExpression>
+    </Measure>
+    
+    <Measure name="CustomerCount" aggregator="distinct-count" caption="&#23458;&#25143;&#25968;" visible="true">
+      <MeasureExpression>
+        <SQL dialect="generic">
+          <![CDATA[customer_id]]>
+        </SQL>
+      </MeasureExpression>
+    </Measure>
+   
+    <CalculatedMember name="PriceRate" formatString="##.00" caption="&#20215;&#26684;&#21040;&#20301;&#29575;" formula="[Measures].[Income] * 100 / [Measures].[ListPriceIncome]" dimension="Measures" visible="true">
+    </CalculatedMember>
+    <CalculatedMember name="AvgPrice" formatString="##.00" caption="&#25104;&#20132;&#20215;" formula="[Measures].[Income] / [Measures].[Sales Amount]" dimension="Measures" visible="true">
+    </CalculatedMember>
+  </Cube>
+  
+  
+  
+  <Cube name="stockCube" caption="&#23458;&#23384;" visible="true" cache="true" enabled="true">
+    <View alias="sales_order_view">
+      <SQL dialect="generic">
+        <![CDATA[
+select 
+a.customer_branch_id,
+a.gas_type_id,
+a.date_id,
+a.str_date,
+(select branch_id from customer_branch cb where cb.id = a.customer_branch_id) branch_id,
+(select customer_id from customer_branch cb where cb.id = a.customer_branch_id) customer_id,
+(select ifnull(sum(so.quantity),0) from sales_order so where   so.status = 'ABLE' and so.is_vail = true and so.customer_branch_id=a.customer_branch_id and so.gas_type_id = a.gas_type_id and so.time_by_day_id = a.date_id) so_qty,
+(select ifnull(sum(ics.stock_qty),0) from init_customer_stock ics where ics.customer_branch_id=a.customer_branch_id and ics.gas_type_id = a.gas_type_id) init_qty,
+(select ifnull(sum(cs.stock_qty),0) from customer_stock cs where cs.customer_branch_id=a.customer_branch_id and cs.gas_type_id = a.gas_type_id and  cs.date_id=a.date_id )  sell_qty,
+(select ifnull(sum(cs.stock_qty),0) from customer_stock cs where cs.customer_branch_id=a.customer_branch_id and cs.gas_type_id = a.gas_type_id and   date_format(cs.cdate,'%Y-%m-%d')<=a.str_date)  sell_all_qty,
+(select ifnull(sum(so.quantity),0) from sales_order so where   so.status = 'ABLE' and so.is_vail = true and so.customer_branch_id=a.customer_branch_id and so.gas_type_id = a.gas_type_id and date_format(so.saling_at,'%Y-%m-%d')  <= a.str_date) so_all_qty
+from all_customer_branch_gasType  a
+order by a.str_date
+        ]]>
+      </SQL>
+    </View>
+    <Dimension type="StandardDimension" visible="true" foreignKey="branch_id" highCardinality="false" name="Branch" caption="&#20998;&#20844;&#21496;">
+      <Hierarchy  visible="true" hasAll="true" allMemberName="All branch" allMemberCaption="All branch" primaryKey="id" primaryKeyTable="branch" caption="&#20998;&#20844;&#21496;">
+         <Table name="branch">
+         </Table>
+        <Level name="Branch" visible="true" table="branch" column="id" captionColumn="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#20998;&#20844;&#21496;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    
+     <Dimension type="StandardDimension" visible="true" foreignKey="branch_id" highCardinality="false" name="BranchAdmin" caption="&#20998;&#20844;&#21496;">
+      <Hierarchy name="BranchHier" visible="true" hasAll="true" allMemberName="All branch" allMemberCaption="All branch" primaryKey="id" primaryKeyTable="branch" caption="&#20998;&#20844;&#21496;">
+        <Join leftKey="branch_group_id" rightKey="id">
+          <Table name="branch">
+          </Table>
+          <Table name="branch_group">
+          </Table>
+        </Join>
+        <Level name="Branch Group" visible="true" table="branch_group" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#20998;&#20844;&#21496;&#32452;">
+        </Level>
+        <Level name="Branch" visible="true" table="branch" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#20998;&#20844;&#21496;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="customer_id" highCardinality="false" name="Customer" caption="&#23458;&#25143;">
+      <Hierarchy name="CustomerHier" visible="true" hasAll="true" primaryKey="id" primaryKeyTable="customer">
+        <Join leftKey="customer_type_id" rightKey="id">
+          <Table name="customer">
+          </Table>
+          <Join leftKey="level2_id" rightKey="id">
+            <Table name="customer_type_level3">
+            </Table>
+            <Join leftKey="level1_id" rightKey="id">
+              <Table name="customer_type_level2">
+              </Table>
+              <Table name="customer_type">
+              </Table>
+            </Join>
+          </Join>
+        </Join>
+        <Level name="Level1" visible="true" table="customer_type" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#38144;&#21806;&#31867;&#21035;">
+        </Level>
+        <Level name="Level2" visible="true" table="customer_type_level2" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#26426;&#26500;&#29992;&#25143;&#20998;&#31867;">
+        </Level>
+        <Level name="Level3" visible="true" table="customer_type_level3" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#24037;&#19994;&#20998;&#31867;">
+        </Level>
+        <Level name="Customer" visible="true" table="customer" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#23458;&#25143;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="TimeDimension" visible="true" foreignKey="date_id" highCardinality="false" name="Time" caption="&#26102;&#38388;">
+      <Hierarchy name="TimeHier" visible="true" hasAll="true" allMemberCaption="&#20840;&#37096;" primaryKey="id" caption="&#26102;&#38388;">
+        <Table name="time_by_day">
+        </Table>
+        <Level name="Year" visible="true" column="year" type="Numeric" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never" caption="&#24180;">
+        </Level>
+        <Level name="Quarter" visible="true" column="quarter" type="Numeric" uniqueMembers="false" levelType="TimeQuarters" hideMemberIf="Never" caption="&#23395;&#24230;">
+        </Level>
+        <Level name="Month" visible="true" column="month" type="Numeric" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never" caption="&#26376;">
+        </Level>
+        <Level name="Day" visible="true" column="day" type="Numeric" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never" caption="&#26085;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="gas_type_id" highCardinality="false" name="Production" caption="&#27833;&#21697;">
+      <Hierarchy name="ProductionHier" visible="true" hasAll="true" allMemberName="All Production" allMemberCaption="&#20840;&#37096;&#27833;&#21697;" primaryKey="id" primaryKeyTable="gas_type">
+        <Join leftKey="category_id" rightKey="id">
+          <Table name="gas_type">
+          </Table>
+          <Table name="category">
+          </Table>
+        </Join>
+        <Level name="Gas Category" visible="true" table="category" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#21697;&#31181;">
+        </Level>
+        <Level name="Gas Type" visible="true" table="gas_type" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#21697;&#21495;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    
+    <Measure name="outQty" column="sell_qty" aggregator="sum" caption="&#25552;&#36135;&#37327;" visible="true">
+    </Measure>
+    
+     <Measure name="soQty" column="so_qty" aggregator="sum" caption="&#38144;&#21806;&#37327;" visible="true">
+    </Measure>
+    
+     <Measure name="stockQty" aggregator="sum" caption="&#23458;&#23384;&#37327;" visible="true">
+      <MeasureExpression>
+        <SQL dialect="generic">
+          <![CDATA[init_qty + so_all_qty-sell_all_qty]]>
+        </SQL>
+      </MeasureExpression>
+    </Measure>
+    
+    
+  </Cube>
+ 
+  <Role name="admin">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+       	  <HierarchyGrant hierarchy="[Branch]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	  <HierarchyGrant hierarchy="[Branch]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+      </CubeGrant>
+      
+    </SchemaGrant>
+  </Role>
+  
+  <Role name="wenzhou">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	  <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[1]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+       <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[1]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+    <Role name="ningbo">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[2]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[2]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+  
+    <Role name="huzhou">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[3]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[3]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+  
+   <Role name="jinhua">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[4]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[4]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+    <Role name="lishui">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[5]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[5]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+  
+    <Role name="yuhang">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[6]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[6]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+  
+    <Role name="jiaxing">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[7]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[7]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+  
+    <Role name="hangzhou">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[8]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[8]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+  
+    <Role name="quzhou">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[9]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[9]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+  
+    <Role name="shaoxing">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[10]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[10]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+  
+    <Role name="zhoushan">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[11]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[11]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+  
+    <Role name="taizhou">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[12]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[12]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+  
+    <Role name="benbu">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[13]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[13]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+  
+    <Role name="xiangshan">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[14]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[14]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+  
+    <Role name="zhuji">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[15]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+      
+      <CubeGrant cube="stockCube" access="all">
+       	    <HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[15]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  
+  <!--
+    <Role name="yuhangzhongyou">
+    <SchemaGrant access="none">
+      <CubeGrant cube="salesCube" access="all">
+      	<HierarchyGrant hierarchy="[BranchAdmin]" access="none"  rollupPolicy="partial">
+        	</HierarchyGrant>
+        <HierarchyGrant hierarchy="[Branch]" access="custom"  rollupPolicy="partial">
+          <MemberGrant member="[16]" access="all">
+          </MemberGrant>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+  -->
+  
+</Schema>

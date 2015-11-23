@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="layout" content="jarvis">
+		<g:set var="entityName" value="${message(code: 'excelUpload.label', default: 'ExcelUpload')}" />
+		<title><g:message code="default.create.label" args="[entityName]" /></title>
+	</head>
+	<body>
+	<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<h1>
+					提货数据上传 <small></small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 数据上传</a></li>
+					<li class="active">提货数据上传</li>
+				</ol>
+				</section>
+	<section class="content">
+	<sec:ifAnyGranted roles="ROLE_ADMIN">
+	    <div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
+            <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+			
+			<g:link class="list" action="list" controller="stockExcelUpload">提货数据上传列表</g:link>
+			
+       </div>
+       </sec:ifAnyGranted>	
+		<div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">提货数据</h3>
+                </div>
+                
+                 <g:if test="${flash.message}">
+			     <div class="message" role="status">${flash.message}</div>
+			   </g:if>
+			
+                <div class="box-body">
+			<g:each in="${excelMessages }" var="excelMessage">
+				<p style="color: red">${excelMessage.row + 1 }行${excelMessage.column }列${excelMessage.message }</p>
+			</g:each>
+			<g:uploadForm action="uploadExcel">
+				<fieldset class="form">
+					<div class="fieldcontain ${hasErrors(bean: excelUploadInstance, field: 'uploadedAt', 'error')} required">
+						 <dl class="dl-horizontal" style="margin-left:-80px;">
+	                           <dt><label for="uploadedAt">
+							<g:message code="excelUpload.file.label" default="File name" />
+							<span class="required-indicator">*</span>
+						</label></dt>
+	                           <dd>
+	                               <div class="col-md-3">
+	                             <input type="file" name="excelFile" class="form-control" accept="application/vnd.ms-excel"/>
+	                               </div>
+	                               
+	                               <div class="col-md-3"><p style="color: red; font-weight: bold; line-height: 30px;">文件的类型为：.xls格式</p></div>
+	                            </dd>
+	                        </dl>		
+					</div>
+				</fieldset>
+				<fieldset class="buttons">
+					<g:submitButton name="create" class="save btn btn-primary" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+				</fieldset>
+			</g:uploadForm>
+		</div>
+		</div>
+		
+		</section>
+		</div>
+	</body>
+</html>

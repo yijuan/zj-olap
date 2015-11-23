@@ -1,0 +1,41 @@
+@charset "utf-8";
+/* CSS Document */
+ table{ text-align:center;}
+thead tr th{ text-align:center;}
+thead tr{ background-color: #3C8DBD; color:white}
+.alink a{ color: white;}
+.message{color:red; font-weight:bold;}
+.list-page{
+    margin-left:30%;
+     padding-top:2%;
+  }
+  
+  .currentStep{float:left;border: 1px solid #DDDDDD;display:block;
+	   height:40px;
+	   width:40px;
+	   text-align:center;
+	   background-color: #36A9E0;
+	   color:white;
+	   line-height: 40px;
+	   }
+	.step{
+	   display:block;
+	   height:40px;
+	   width:40px;
+	   float:left;
+	   text-align:center;
+	   border: 1px solid #DDDDDD;
+	   line-height: 40px;
+	}
+	
+	.nextLink{border: 1px solid #DDDDDD;display:block;
+	   height:40px;
+	   width:40px; float:left;line-height: 40px;}   
+	   .prevLink{
+	     border: 1px solid #DDDDDD;display:block;
+	   height:40px;
+	   width:40px; float:left;
+	   line-height: 40px;
+	   }
+  
+

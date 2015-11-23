@@ -1,0 +1,115 @@
+<Schema name="&#19994;&#21153;&#22788;">
+  <Cube name="sales" caption="&#38144;&#21806;" visible="true" cache="true" enabled="true">
+    <Table name="sales_order">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" foreignKey="branch_id" highCardinality="false" name="Branch" caption="&#20998;&#20844;&#21496;">
+      <Hierarchy visible="true" hasAll="true" allMemberName="All branch" allMemberCaption="All branch" primaryKey="id" primaryKeyTable="branch" caption="&#20998;&#20844;&#21496;">
+        <Join leftKey="branch_group_id" rightKey="id">
+          <Table name="branch">
+          </Table>
+          <Table name="branch_group">
+          </Table>
+        </Join>
+        <Level name="Branch Group" visible="true" table="branch_group" column="name" uniqueMembers="false" caption="&#20998;&#20844;&#21496;&#32452;">
+        </Level>
+        <Level name="Branch" visible="true" table="branch" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#20998;&#20844;&#21496;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="gas_type_id" highCardinality="false" name="Production" caption="&#27833;&#21697;">
+      <Hierarchy visible="true" hasAll="true" allMemberName="All Production" allMemberCaption="&#20840;&#37096;&#27833;&#21697;" primaryKey="id" primaryKeyTable="gas_type">
+        <Join leftKey="category_id" rightKey="id">
+          <Table name="gas_type">
+          </Table>
+          <Table name="category">
+          </Table>
+        </Join>
+        <Level name="Gas Category" visible="true" table="category" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#21697;&#31181;">
+        </Level>
+        <Level name="Gas Type" visible="true" table="gas_type" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#21697;&#21495;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="sales_id" highCardinality="false" name="Sales" caption="&#23458;&#25143;&#32463;&#29702;">
+      <Hierarchy visible="true" hasAll="true">
+        <Table name="sales">
+        </Table>
+        <Level name="Sales" visible="true" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#23458;&#25143;&#32463;&#29702;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="salingtype_id" highCardinality="false" name="Saling Type" caption="&#38144;&#21806;&#29615;&#33410;">
+      <Hierarchy visible="true" hasAll="true" primaryKey="id" caption="&#38144;&#21806;&#29615;&#33410;">
+        <Table name="saling_type">
+        </Table>
+        <Level name="SalingType" visible="true" table="saling_type" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#38144;&#21806;&#29615;&#33410;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="TimeDimension" visible="true" foreignKey="time_by_day_id" highCardinality="false" name="Time" caption="&#26102;&#38388;">
+      <Hierarchy visible="true" hasAll="true" allMemberCaption="&#20840;&#37096;" caption="&#26102;&#38388;">
+        <Table name="time_by_day">
+        </Table>
+        <Level name="Year" visible="true" column="year" type="Numeric" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never" caption="&#24180;">
+        </Level>
+        <Level name="Quarter" visible="true" column="quarter" type="Numeric" uniqueMembers="false" levelType="TimeQuarters" hideMemberIf="Never" caption="&#23395;&#24230;">
+        </Level>
+        <Level name="Month" visible="true" column="month" type="Numeric" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never" caption="&#26376;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="customer_id" highCardinality="false" name="Customer" caption="&#23458;&#25143;">
+      <Hierarchy visible="true" hasAll="true" primaryKey="id" primaryKeyTable="customer">
+        <Join leftKey="customer_type_id" rightKey="id">
+          <Table name="customer">
+          </Table>
+          <Join leftKey="level2_id" rightKey="id">
+            <Table name="customer_type_level3">
+            </Table>
+            <Join leftKey="level1_id" rightKey="id">
+              <Table name="customer_type_level2">
+              </Table>
+              <Table name="customer_type">
+              </Table>
+            </Join>
+          </Join>
+        </Join>
+        <Level name="Level1" visible="true" table="customer_type" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#38144;&#21806;&#31867;&#21035;">
+        </Level>
+        <Level name="Level2" visible="true" table="customer_type_level2" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#26426;&#26500;&#29992;&#25143;&#20998;&#31867;">
+        </Level>
+        <Level name="Level3" visible="true" table="customer_type_level3" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#24037;&#19994;&#20998;&#31867;">
+        </Level>
+        <Level name="Customer" visible="true" table="customer" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#23458;&#25143;">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Sales Amount" column="quantity" aggregator="sum" caption="&#38144;&#37327;" visible="true">
+    </Measure>
+    <Measure name="Sales Count" column="id" aggregator="distinct-count" caption="&#25104;&#20132;&#21333;&#25968;" visible="true">
+    </Measure>
+    <Measure name="Income" aggregator="sum" caption="&#38144;&#21806;&#25910;&#20837;" visible="false">
+      <MeasureExpression>
+        <SQL dialect="generic">
+          <![CDATA[quantity * purchasing_price]]>
+        </SQL>
+      </MeasureExpression>
+    </Measure>
+    <Measure name="Cost" aggregator="sum" caption="&#25104;&#26412;" visible="true">
+      <MeasureExpression>
+        <SQL dialect="generic">
+          <![CDATA[quantity * count_price]]>
+        </SQL>
+      </MeasureExpression>
+    </Measure>
+    <Measure name="ListPriceIncome" aggregator="sum" caption="&#25209;&#21457;&#21040;&#20301;&#20215;&#25910;&#20837;" visible="true">
+      <MeasureExpression>
+        <SQL dialect="generic">
+          <![CDATA[list_unit_price * quantity]]>
+        </SQL>
+      </MeasureExpression>
+    </Measure>
+    <CalculatedMember name="PriceRate" formatString="##.00" caption="&#20215;&#26684;&#21040;&#20301;&#29575;" formula="[Measures].[Income] * 100 / [Measures].[ListPriceIncome]" dimension="Measures" visible="true">
+    </CalculatedMember>
+  </Cube>
+</Schema>

@@ -1,0 +1,22 @@
+type=OLAP
+name=petrochina
+driver=mondrian.olap4j.MondrianOlap4jDriver
+location=jdbc:mondrian:Jdbc=jdbc:mysql://localhost:3306/zj_olap?useUnicode=true&characterEncoding=utf8;Catalog=res:petrochina/zj-bi.xml;JdbcDrivers=com.mysql.jdbc.Driver;
+username=root
+password=root4ywc
+
+# some security configuration for roles, first enable it
+# security.enabled=true
+
+# there are 3 different types of security:
+# "one2one" (try and map spring user roles to mondrian roles), 
+# "lookup" (define the mapping of spring and mondrian roles manually) 
+# "passthrough" (will pass username + password of logged in user to connection, e.g. jdbc user + password)
+
+ 
+
+
+security.enabled=true
+#security.type=one2one
+security.type=lookup
+security.mapping=ROLE_ADMIN=admin;ROLE_WENZHOU=wenzhou;ROLE_NINGBO=ningbo;ROLE_HUZHOU=huzhou;ROLE_JINHUA=jinhua;ROLE_LISHUI=lishui;ROLE_YUHANG=yuhang;ROLE_JIAXING=jiaxing;ROLE_HANGZHOU=hangzhou;ROLE_QUZHOU=quzhou;ROLE_SHAOXING=shaoxing;ROLE_ZHOUSHAN=zhoushan;ROLE_TAIZHOU=taizhou;ROLE_BENBU=benbu;ROLE_XIANGSHAN=xiangshan;ROLE_ZHUJI=zhuji;ROLE_YUHANGZHONGYOU=yuhangzhongyou;
