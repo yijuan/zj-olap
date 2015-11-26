@@ -20,9 +20,16 @@ class SalingTypeController {
     }
 
     def save() {
+		def name = params.name
+		def st = SalingType.findByName(name)
+		if(st){
+			flash.message="该销售环节已经创建！"
+			redirect(action: "list")
+		}else{
         def salingTypeInstance = new SalingType(params)
         if (!salingTypeInstance.save(flush: true)) {
           //  render(view: "create", model: [salingTypeInstance: salingTypeInstance])
+			flash.message="销售环节创建不成功，请重新创建！"
 			redirect(action: "list")
             return
         }
@@ -30,6 +37,7 @@ class SalingTypeController {
         flash.message = message(code: 'default.created.message', args: [message(code: 'salingType.label', default: 'SalingType'), salingTypeInstance.id])
         //redirect(action: "show", id: salingTypeInstance.id)
 		redirect(action: "list")
+		}
     }
 
     def show(Long id) {

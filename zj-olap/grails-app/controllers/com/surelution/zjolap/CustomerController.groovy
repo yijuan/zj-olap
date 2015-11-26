@@ -8,7 +8,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 class CustomerController {
 
-	
+	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def springSecurityService
 
 	def index() {
@@ -84,41 +84,42 @@ class CustomerController {
 	}
 	
 	def selector() {
-		def customerName = params.term
-//		def branchId = params.branchId
-		
-		def currBranch = springSecurityService.currentUser.branch
-		
-//		def max = Math.min(params.max ?: 20, 100)
-		def result = CustomerBranch.createCriteria().list() {
+		def customerName = params.customerName
+		def branchId = params.branchId
+		def max = Math.min(params.max ?: 20, 100)
+		def result = CustomerBranch.createCriteria().list(max:max, offset:params.offset) {
 			createAlias("customer", "c")
-			if(currBranch) {
-//			createAlias("branch", "b")
-				eq('branch', currBranch)
+			if(branchId) {
+				createAlias("branch", "b")
+				eq('b.id', branchId as long)
 			}
 			like('c.name', "%${customerName}%")
 		}
-		
-		def n = result*.customer
-		println n
+
+		[customerInstanceList: result, customerInstanceTotal: result.totalCount]
 	
-//		[customerInstanceList: result, customerInstanceTotal: result.totalCount]
-		
-//		def term = params.term
-//		println term
-//	
-//		def cs =Customer.findAllByNameLike("%${term}%").collect() {
-//			['id' : it.id,'label':it.name, 'value':it.name]
-//		}
-		
-//		render cs as JSON
-		
-		def maps = n.collect(){['id' : it.id,'label':it.name, 'value':it.name]}
-		
-		render n.collect(){['id' : it.id,'label':it.name, 'value':it.name]} as JSON
-		
+	}
 	
-	
+	def customerBranchSelector(){
+		        def customerName = params.term
+		//		def branchId = params.branchId
+				
+				def currBranch = springSecurityService.currentUser.branch
+				
+		//		def max = Math.min(params.max ?: 20, 100)
+				def result = CustomerBranch.createCriteria().list() {
+					createAlias("customer", "c")
+					if(currBranch) {
+		//			createAlias("branch", "b")
+						eq('branch', currBranch)
+					}
+					like('c.name', "%${customerName}%")
+				}
+				
+				render result.collect(){['id' : it.id,'label':it.customer.name+">>"+it.branch.name, 'value':it.customer.name+">>"+it.branch.name]} as JSON
+				
+			
+			
 	}
 
 	def list(Integer max) {
@@ -128,7 +129,8 @@ class CustomerController {
 		def loginBranch = user.branch
 
 		params.max = Math.min(max ?: 10, 100)
-		def customerName = params.customerName.toString().trim()
+		def customerName = params.customerName
+
 //		def customerBranchs
 //		def ids = new ArrayList();
 		def sortBy = params['sort']
@@ -449,6 +451,8 @@ class CustomerController {
 
 		def customerInstance = new Customer(params)
 		
+		
+		
 		def user = springSecurityService.currentUser
 		def loginBranch = user.branch
 		def msg = null;
@@ -460,13 +464,13 @@ class CustomerController {
 		
 		if(msg) {
 			flash.message = msg;
-			render(view: "create", model: [customerInstance: customerInstance])
+		//	render(view: "create", model: [customerInstance: customerInstance])
+			redirect(action:'list')
 			return ;
 		}
 		
 		
 		def file = request.getFile('licenseFile')
-		
 
 		def filePath = grailsApplication.config.file.importer.file.location
 		def uuid = UUID.randomUUID().toString()
@@ -544,11 +548,9 @@ class CustomerController {
 	}
 	
 	
-	def saveD() {
-		
+	def saveD() {		
 				def customerInstance = new Customer(params)
-				
-				
+						
 				def user = springSecurityService.currentUser
 				def loginBranch = user.branch
 				def msg = null;
@@ -820,7 +822,8 @@ class CustomerController {
 						[
 							message(code: 'customer.label', default: 'Customer')] as Object[],
 						"Another user has updated this Customer while you were editing")
-				render(view: "edit", model: [customerInstance: customerInstance])
+				//render(view: "edit", model: [customerInstance: customerInstance])
+				redirect(action:'show',id:customerInstance.id)
 				return
 			}
 		}
@@ -856,13 +859,15 @@ class CustomerController {
 		
 		if(msg) {
 			flash.message = msg;
-			render(view: "edit", model: [customerInstance: customerInstance])
+		//	render(view: "edit", model: [customerInstance: customerInstance])
+			redirect(action:'show',id:customerInstance.id)
 			return ;
 		}
 		
 		
 		if (!customerInstance.save(flush: true)) {
-			render(view: "edit", model: [customerInstance: customerInstance])
+		//	render(view: "edit", model: [customerInstance: customerInstance])
+			redirect(action:'show',id:customerInstance.id)
 			return
 		}
 

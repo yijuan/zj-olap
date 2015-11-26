@@ -21,7 +21,8 @@ class ThidrFactorController {
 
     def save() {
 		params.influncedAt = params.date('influncedAt', 'yyyy-MM-dd')
-        def thidrFactorInstance = new ThidrFactor(params)
+       def thidrFactorInstance = new ThidrFactor(params)
+	
         if (!thidrFactorInstance.save(flush: true)) {
            // render(view: "create", model: [thidrFactorInstance: thidrFactorInstance])
 			redirect(action:'list')
@@ -56,7 +57,7 @@ class ThidrFactorController {
     }
 
     def update(Long id, Long version) {
-		params.influncedAt = params.date('influncedAt', 'yyyy-mm-dd')
+		params.influncedAt = params.date('influncedAt', 'yyyy-MM-dd')
         def thidrFactorInstance = ThidrFactor.get(id)
         if (!thidrFactorInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'thidrFactor.label', default: 'ThidrFactor'), id])

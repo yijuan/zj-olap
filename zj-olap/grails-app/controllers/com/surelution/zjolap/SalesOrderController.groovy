@@ -9,6 +9,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.springframework.dao.DataIntegrityViolationException
 
+
 class SalesOrderController {
 
 	static allowedMethods = [save: "POST"]
@@ -33,7 +34,7 @@ class SalesOrderController {
 		params.max = Math.min(max ?: 10, 100)
 		def branch, salingAtFrom, salingAtTo, orderFormNo = params.orderFormNo
 
-		def sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm")
+		def sdf = new SimpleDateFormat("yyyy.MM.dd")
 
 		if(params['branch.id']) {
 			branch = Branch.get(params['branch.id'])
@@ -567,7 +568,7 @@ class SalesOrderController {
 				order.id
 			])
 			//redirect(action: "show", id: order.id)
-			redirect(action: "listApprove",params:[max:params.max,offset:params.offset])
+			redirect(action: "list",params:[max:params.max,offset:params.offset])
 		} else {
 
 			//否则就是分公司登录
@@ -610,7 +611,7 @@ class SalesOrderController {
 					salesOrderInstance.id
 				])
 				//redirect(action: "show", id: salesOrderInstance.id)
-				redirect(action: "listApprove")
+				redirect(action: "list")
 
 			} else {
 
@@ -756,43 +757,34 @@ class SalesOrderController {
 
 		def oldOrder
 		if(orderAppor){
+			//updateFrom 为空值
 			def oldId = orderAppor.updateFrom
 			def operMethod = orderAppor.status
 
 			if(oldId) {
 				oldOrder = SalesOrder.get(oldId)
 			}
-
-
-
 			if(Customer.STATUS_ADD == operMethod) {
 				orderAppor.status = SalesOrder.STATUS_ABLE
-
-
 				def customerBranch = CustomerBranch.create(orderAppor.customer, orderAppor.branch, orderAppor.timeByDay)
 				orderAppor.customerBranch =  customerBranch
 				orderAppor.save(flush:true);
 			}else if (Customer.STATUS_UPDATE == operMethod) {
-
 				orderAppor.status = SalesOrder.STATUS_ABLE
-				orderAppor.updateFrom = null
+				//orderAppor.updateFrom = null
 				orderAppor.isVail = true;
 
 				def customerB = CustomerBranch.create(orderAppor.customer, orderAppor.branch, orderAppor.timeByDay)
 				orderAppor.customerBranch =  customerB
 				orderAppor.save(flush:true);
 
-
-
-				oldOrder.isVail =  false
+         		oldOrder.isVail =  false
 				oldOrder.updateFrom = null
 
 				def customerBranch = CustomerBranch.create(oldOrder.customer, oldOrder.branch, oldOrder.timeByDay)
 				oldOrder.customerBranch =  customerBranch
 
 				oldOrder.save(flush: true)
-
-
 			}else if (Customer.STATUS_DELETE == operMethod) {
 				oldOrder.status = SalesOrder.STATUS_ABLE
 				oldOrder.optionValue = SalesOrder.OPTION_VALUE_DELETE

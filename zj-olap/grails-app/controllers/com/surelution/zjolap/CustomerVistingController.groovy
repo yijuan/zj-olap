@@ -1,6 +1,7 @@
 package com.surelution.zjolap
 
 import grails.converters.JSON
+import java.text.SimpleDateFormat
 
 import org.springframework.dao.DataIntegrityViolationException
 
@@ -20,21 +21,21 @@ class CustomerVistingController {
 		if(branch) {
 			sales = Sales.findAllByBranch(branch.branch)
 		}
-        params.max = Math.min(max ?: 10, 100)
+		params.max = Math.min(max ?: 10, 100)
 		def customer
 		def caller
 		def timeFrom, timeTo
-		if(params['customer']) {
-			customer = Customer.findByName(params['customer'])
+		if(params['customer.id']) {
+			customer = Customer.get(params['customer.id'])
 		}
 		if(params['sales.id']) {
 			caller = Sales.get(params['sales.id'])
 		}
 		if(params.vistingAtFrom) {
-			timeFrom = params.date('vistingAtFrom', 'yyyy.mm.dd HH:mm')
+			timeFrom = params.date('vistingAtFrom', 'yyyy.MM.dd HH:mm')
 		}
 		if(params.vistingAtTo) {
-			timeTo = params.date('vistingAtTo', 'yyyy.mm.dd HH:mm')
+			timeTo = params.date('vistingAtTo', 'yyyy.MM.dd HH:mm')
 		}
 		
 		params.max = Math.min(max ?: 10, 100)
@@ -53,7 +54,7 @@ class CustomerVistingController {
 			}
 		}
 		
-        [customerVistingInstanceList: vistings, customerVistingInstanceTotal: vistings.totalCount, sales:sales]
+		[customerVistingInstanceList: vistings, customerVistingInstanceTotal: vistings.totalCount, sales:sales]
     }
 
     def create() {

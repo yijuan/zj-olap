@@ -20,7 +20,9 @@ class PriceController {
     }
 
     def save() {
+		params.from = params.date('from', 'yyyy-MM-dd hh:mm')
         def priceInstance = new Price(params)
+		
         if (!priceInstance.save(flush: true)) {
           //  render(view: "create", model: [priceInstance: priceInstance])
 			redirect(action: "list")
@@ -72,7 +74,7 @@ class PriceController {
                 return
             }
         }
-
+		params.from = params.date('from', 'yyyy-MM-dd hh:mm')
         priceInstance.properties = params
 
         if (!priceInstance.save(flush: true)) {

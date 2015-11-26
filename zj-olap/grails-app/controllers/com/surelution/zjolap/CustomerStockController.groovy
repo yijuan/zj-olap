@@ -28,7 +28,7 @@ class CustomerStockController {
 		params.max = Math.min(max ?: 10, 100)
 
 
-		def sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm")
+		def sdf = new SimpleDateFormat("yyyy.MM.dd")
 		def branch,dateBegin,dateEnd
 
 		if(params['branchId']) {
@@ -512,14 +512,11 @@ class CustomerStockController {
 
 	}
 
+	
+	//提货表上传
 	def uploadExcel() {
-
-
-
 		def cal = Calendar.instance
-
 		def excelMessages = []
-
 		def filePath = grailsApplication.config.excel.importer.file.location
 		def destPath = "${filePath}${UUID.randomUUID().toString()}"
 		println destPath
@@ -534,7 +531,6 @@ class CustomerStockController {
 		excelUploadInstance.filePath = destPath
 		excelUploadInstance.uploadedAt = new Date()
 		excelUploadInstance.user = springSecurityService.currentUser
-
 
 
 		def fis = new FileInputStream(destPath)
@@ -553,7 +549,6 @@ class CustomerStockController {
 		def lastRowNum = sheet.lastRowNum
 		def predefinedFirstRowNum = 6
 
-
 		def customerstocks = new ArrayList<CustomerStock>();
 
 		//(predefinedFirstRowNum .. lastRowNum ).each {num ->
@@ -570,8 +565,10 @@ class CustomerStockController {
 
 				def customerStock = new CustomerStock();
 
-
-				CustomerBranch customerBranch = initCustomBranch(row)
+                /*
+                 * 修改了initCustomerBranch()里面的新建，把新建部分的内容全部注销了
+                 */
+			    CustomerBranch customerBranch = initCustomBranch(row)
 				double stockQty = initStockQty(row)
 				TimeByDay date = initTimeByDay(row)
 
@@ -611,11 +608,8 @@ class CustomerStockController {
 			render(view: "initUploadExcel", model: [excelMessages:excelMessages])
 			return
 		}
-
-
+		
 		customerStockService.serviceUploadCustomerStocks(customerstocks, excelUploadInstance);
-
-
 		flash.message = "数据上传成功";
 		redirect(action: "initUploadExcel")
 
@@ -659,11 +653,11 @@ class CustomerStockController {
 
 		def branch = Branch.findByName(branchName);
 
-		if(!branch) {
+		/*if(!branch) {
 			branch = new Branch()
 			branch.name = branchName;
 			branch.save(flush:true);
-		}
+		}*/
 
 
 		HSSFCell cellCustomer= row.getCell(getCellPosition('M'));
@@ -672,19 +666,19 @@ class CustomerStockController {
 
 		def type3 = CustomerTypeLevel3.findByName("未指定");
 
-		if(!customer) {
+		/*if(!customer) {
 			customer = new 	Customer()
 			customer.name = customerName
 			customer.customerType = type3;
 			customer.status = "ABLE";
 			customer.save(flush:true);
 		}
-
+*/
 
 		def customerBranch =  CustomerBranch.findByCustomerAndBranch(customer,branch);
-		if(!customerBranch) {
+		/*if(!customerBranch) {
 			customerBranch = CustomerBranch.create(customer, branch, null);
-		}
+		}*/
 
 
 		return customerBranch;
@@ -880,7 +874,7 @@ class CustomerStockController {
 		params.max = Math.min(max ?: 10, 100)
 
 
-		def sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm")
+		def sdf = new SimpleDateFormat("yyyy.MM.dd")
 		def branch,dateBegin,dateEnd
 
 		if(params['branchId']) {

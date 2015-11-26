@@ -283,12 +283,12 @@ class WarningRuleController {
 	}
 	
 	private Date getLastSaleDate(customerBranch,gasType) {
-		def stockList= SalesOrder.createCriteria().list {
+		def stockList= CustomerStock.createCriteria().list {
 			eq("customerBranch",customerBranch)
 			eq("gasType",gasType)
 			eq('isVail',true)
 			eq('status',"ABLE")
-			order("salingAt", "desc")
+			order("cdate", "desc")
 		}
 		
 		if(stockList) {
@@ -496,7 +496,7 @@ class WarningRuleController {
         }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'warningRule.label', default: 'WarningRule'), warningRuleInstance.id])
-       // redirect(action: "show", id: warningRuleInstance.id)
+        //redirect(action: "show", id: warningRuleInstance.id)
 		redirect(action:'list')
     }
 
@@ -544,8 +544,8 @@ class WarningRuleController {
                 warningRuleInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
                           [message(code: 'warningRule.label', default: 'WarningRule')] as Object[],
                           "Another user has updated this WarningRule while you were editing")
-              //  render(view: "edit", model: [warningRuleInstance: warningRuleInstance])
-				redirect(action:'list')
+               // render(view: "edit", model: [warningRuleInstance: warningRuleInstance])
+				redirect(action: "list")
                 return
             }
         }
@@ -556,19 +556,19 @@ class WarningRuleController {
 		if(msg){
 			flash.message = msg
 		//	render(view: "edit", model: [warningRuleInstance: warningRuleInstance])
-			redirect(action:'list')
+			redirect(action: "list")
 			return
 		}
 		
         if (!warningRuleInstance.save(flush: true)) {
-          //  render(view: "edit", model: [warningRuleInstance: warningRuleInstance])
-			redirect(action:'list')
+         //   render(view: "edit", model: [warningRuleInstance: warningRuleInstance])
+			redirect(action: "list")
             return
         }
 
         flash.message = message(code: 'default.updated.message', args: [message(code: 'warningRule.label', default: 'WarningRule'), warningRuleInstance.id])
       //  redirect(action: "show", id: warningRuleInstance.id)
-		redirect(action:'list')
+		redirect(action: "list")
     }
 
     def delete(Long id) {
@@ -586,8 +586,8 @@ class WarningRuleController {
         }
         catch (DataIntegrityViolationException e) {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'warningRule.label', default: 'WarningRule'), id])
-        //    redirect(action: "show", id: id)
-			redirect(action:'list') 
+          //  redirect(action: "show", id: id)
+			redirect(action: "list")
         }
     }
 	
