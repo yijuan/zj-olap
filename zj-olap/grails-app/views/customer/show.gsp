@@ -24,7 +24,7 @@
 	<section class="content">
 	<div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
             <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
-			<g:link class="list" action="list" target='_blank'>客户列表</g:link>	
+			<g:link class="list" action="list">客户列表</g:link>	
        </div>
 			<h3><g:message code="default.show.label" args="[entityName]" /></h3>
 			<g:if test="${flash.message}">
@@ -115,8 +115,14 @@
 			<g:form>
 							<fieldset class="buttons">
 					<g:hiddenField name="id" value="${customerInstance?.id}" />
-					<g:actionSubmit class="edit btn btn-primary" action="edit"  value="${message(code:'default.button.edit.label', default:'Edit')}" />
-					<%--<a href="${createLink(action:'edit',controller:'customer',id:customerInstance.id) }" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><g:message code="default.button.edit.label",default="Edit"/></a>
+					<%--<g:actionSubmit value="${message(code:'default.button.edit.label', default:'Edit')}" class="btn btn-primary" action="edit"/>--%>
+					
+					
+				   <g:if test="${customerInstance?.status =='ADD'}">
+				   
+                      </g:if>
+                      <g:else>
+                         <g:link class="edit btn btn-primary" action="edit" id="${customerInstance?.id}"  value="" data-toggle="modal" data-target="#myModal">${message(code:'default.button.edit.label', default:'Edit')}</g:link>
 					<div class="modal fade" id="myModal" role="dialog">
                      <div class="modal-dialog">
                            <!-- Modal content-->
@@ -124,8 +130,12 @@
                            </div>
                           </div>
                       </div>	
-					--%><g:actionSubmit class="delete btn btn-primary" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+                     
+					<g:actionSubmit class="delete btn btn-primary" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				  
+				 
+				    <g:link  target='_blank' class="create btn btn-primary" controller="fileUpload" action="list" params="${[fromID:customerInstance?.id,useOpter:'CUSTOMER']}">编辑附件</g:link>
+				 </g:else>
 				</fieldset>
 			</g:form>	
 			</g:if>	

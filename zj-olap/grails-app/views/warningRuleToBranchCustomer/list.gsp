@@ -40,7 +40,7 @@
 	<section class="content">
 	    <div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-			<g:link class="create" action="create" data-toggle="modal" data-target="#myModal"><g:message code="default.new.label" args="[entityName]" /></g:link>
+			<g:link class="create" action="create" data-toggle="modal" data-target="#myModal">新增客户警告</g:link>
 			<!-- 新增台账的dialog -->	
 			 <div class="modal fade" id="myModal" role="dialog">
                      <div class="modal-dialog">
@@ -51,9 +51,6 @@
                       </div>		
        </div>
 	    
-	    
-	    
-		
 		<div id="list-warningRuleToBranchCustomer" class="content scaffold-list">
 			<h4><g:message code="default.list.label" args="[entityName]" /></h4>
 			<g:if test="${flash.message}">
@@ -79,7 +76,6 @@
 				<tbody>
 				<g:each in="${warningRuleToBranchCustomerInstanceList}" status="i" var="warningRuleToBranchCustomerInstance">
 					<tr>
-					
 						<td>${warningRuleToBranchCustomerInstance?.customerBranch?.branch?.name}</td>
 						<td>${warningRuleToBranchCustomerInstance?.customerBranch?.customer?.name}</td>
 						<td>${warningRuleToBranchCustomerInstance?.rule?.gasType?.category?.name}</td>

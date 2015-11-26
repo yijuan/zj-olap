@@ -146,13 +146,7 @@
 		    
 		});
 		
-		   })
-		   
-		   
-		   
-		  
-		   
-		   
+		   })   
 
 		</script>
 		
@@ -253,9 +247,9 @@
 						<script type="text/javascript">
                 $('#datetimepicker').datetimepicker({
                 	isRTL: false,
-                    format: 'yyyy.mm.dd hh:ii',
+                    format: 'yyyy.mm.dd',
                     autoclose:true,
-                  
+                    minView: 'month',
                     language: 'zh-CN'
 					});
         </script>
@@ -266,8 +260,8 @@
 						 <script type="text/javascript">
                 $('#datetimepicker4').datetimepicker({
                 	isRTL: false,
-                	format: 'yyyy.mm.dd hh:ii',
-                   
+                	format: 'yyyy.mm.dd',
+                	 minView: 'month',
                     autoclose:true,
                     language: 'zh-CN'
 					});
@@ -313,60 +307,60 @@
 		
 		<div id="list-salesOrder"  class="scaffold-list"
 			style="height: 600px; overflow: scroll;">
-			<h3>
+			<h4>
 				<g:message code="default.list.label" args="[entityName]" />
-			</h3>
+			</h4>
 			
 			<div id="divCols" style="width: 2000px;"></div>
 			
 			
 
-			<div class="tab">
-				<table class="table table-bordered  table-striped" style="width: 2000px;">
+			<div class="tab" style="width: 2000px;">
+				<table class="table table-bordered  table-striped" >
 					<thead>
 						<tr>
 							<g:sortableColumn property="branch"
 								title="${message(code: 'salesOrder.branch.label', default: 'Branch')}"
-								params="${params}" class="alink" class="alink"/>	
+								params="${params}" class="alink"/>	
 							<g:sortableColumn property="salingtype"
 								title="${message(code: 'salesOrder.salingtype.label', default: 'Saling Type')}"
-								params="${params}"  class="alink" class="alink"/>
+								params="${params}"  class="alink"/>
 							<g:sortableColumn property="month"
 								title="${message(code: 'salesOrder.month.label', default: '结算月')}"
-								params="${params}" class="alink" class="alink"/>
+								params="${params}" class="alink"/>
 							<g:sortableColumn property="customer"
 								title="${message(code: 'salesOrder.customer.label', default: 'Customer')}"
-								params="${params}" class="alink" class="alink"/>
+								params="${params}" class="alink"/>
 							<g:sortableColumn property="orderFormNo"
 								title="${message(code: 'salesOrder.orderFormNo.label', default: 'Order Form No')}"
-								params="${params}" class="alink" class="alink"/>
+								params="${params}" class="alink"/>
 							<g:sortableColumn property="timeByDay"
 								title="${message(code: 'salesOrder.timeByDay.label', default: '开单时间')}"
-								params="${params}" class="alink" class="alink"/>
+								params="${params}" class="alink"/>
 							<g:sortableColumn property="gasType"
 								title="${message(code: 'salesOrder.category.label', default: 'Category')}"
-								params="${params}" class="alink" class="alink"/>
+								params="${params}" class="alink"/>
 							<g:sortableColumn property="gasType"
 								title="${message(code: 'salesOrder.gasType.label', default: 'Gas Type')}"
-								params="${params}" class="alink" class="alink"/>
+								params="${params}" class="alink"/>
 							<g:sortableColumn property="quantity"
 								title="${message(code: 'salesOrder.quantity.label', default: '数量')}"
-								params="${params}" class="alink" class="alink"/>
+								params="${params}" class="alink"/>
 							<g:sortableColumn property="purchasingUnitPrice"
 								title="${message(code: 'salesOrder.purchasingUnitPrice.label', default: '销售价')}"
-								params="${params}" class="alink" class="alink"/>
+								params="${params}" class="alink"/>
 							<g:sortableColumn property="purchasingPrice"
 								title="${message(code: 'salesOrder.purchasingPrice.label', default: 'Purchasing Price')}"
-								params="${params}" class="alink" class="alink"/>
+								params="${params}" class="alink"/>
 							<g:sortableColumn property="customerType"
 								title="${message(code: 'salesOrder.customerType.label', default: '客户性质')}"
-								params="${params}" class="alink" class="alink"/>
+								params="${params}" class="alink"/>
 							<g:sortableColumn property="customerType"
 								title="${message(code: 'salesOrder.customerTypelevel2.label', default: '机构用户分类')}"
-								params="${params}" class="alink" class="alink"/>
+								params="${params}" class="alink"/>
 							<g:sortableColumn property="customerType"
 								title="${message(code: 'salesOrder.customerTypelevel3.label', default: '工业分类')}"
-								params="${params}" class="alink" class="alink"/>
+								params="${params}" class="alink"/>
 							<g:sortableColumn property="listUnitPrice"
 								title="${message(code: 'salesOrder.listUnitPrice.label', default: 'List Unit Price')}"
 								params="${params}" class="alink"/>

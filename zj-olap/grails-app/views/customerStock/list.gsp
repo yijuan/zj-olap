@@ -104,8 +104,9 @@
 						<script type="text/javascript">
                 $('#datetimepicker').datetimepicker({
                 	isRTL: false,
-                    format: 'yyyy.mm.dd hh:ii',
+                    format: 'yyyy.mm.dd',
                     autoclose:true,
+                    minView: 'month',
                     language: 'zh-CN'
 					});
         </script>
@@ -116,8 +117,9 @@
 						<script type="text/javascript">
                 $('#datetimepicker1').datetimepicker({
                 	isRTL: false,
-                    format: 'yyyy.mm.dd hh:ii',
+                    format: 'yyyy.mm.dd',
                     autoclose:true,
+                    minView: 'month',
                     language: 'zh-CN'
 					});
         </script>
@@ -148,7 +150,7 @@
 			</div>	
 				
 			</sec:ifAnyGranted>
-			<h2><g:message code="default.list.label" args="[entityName]" /></h2>
+			<h3>提货单列表</h3>
 			
 			
 			<table class="table table-bordered  table-striped">

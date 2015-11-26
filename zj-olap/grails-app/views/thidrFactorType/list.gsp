@@ -34,7 +34,7 @@
 					影响因素设置<small></small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 销售类别</a></li>
+					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i>系统设置</a></li>
 					<li class="active">影响因素设置</li>
 				</ol>
 				</section>
@@ -60,20 +60,20 @@
 			<table class="table table-bordered  table-striped">
 				<thead>
 					<tr>
-					
+					<g:sortableColumn property="name" title="${message(code: 'thidrFactorType.name.label', default: 'Name')}" class="alink"/>
 						<g:sortableColumn property="description" title="${message(code: 'thidrFactorType.description.label', default: 'Description')}" class="alink"/>
 					
-						<g:sortableColumn property="name" title="${message(code: 'thidrFactorType.name.label', default: 'Name')}" class="alink"/>
+						
 					<td>操作</td>
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${thidrFactorTypeInstanceList}" status="i" var="thidrFactorTypeInstance">
 					<tr>
-					
+					<td>${fieldValue(bean: thidrFactorTypeInstance, field: "name")}</td>
 						<td>${fieldValue(bean: thidrFactorTypeInstance, field: "description")}</td>
 					
-						<td>${fieldValue(bean: thidrFactorTypeInstance, field: "name")}</td>
+						
 					<td>
 					    <a href="${createLink(action:'delete',controller:'thidrFactorType',id:thidrFactorTypeInstance.id)}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="删除影响因素"></span></a>
 		 

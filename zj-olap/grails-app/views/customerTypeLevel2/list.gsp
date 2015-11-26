@@ -12,6 +12,7 @@
 			   $("a[data-target=#customerModal]").click(function(event) {
 							$(this).data('customerModal',null)
 						    event.preventDefault();
+							 var target = $(this).attr("href"); 
 							    $("#customerModal").load(target, function() { 
 							       $("#customerModal").addClass("modalstyle")      
 				                   $("#customerModal").modal('show');  			    	
@@ -34,7 +35,7 @@
 					机构类型 <small></small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 销售类别</a></li>
+					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 系统设置</a></li>
 					<li class="active">机构类型</li>
 				</ol>
 				</section>
@@ -60,9 +61,9 @@
 				<thead style="background-color: #3C8DBD">
 					<tr>
 				                                                                                                                                            
-						<g:sortableColumn property="name" title="名称" class="alink"/>
-						<th style="color:white"><g:message code="customerTypeLevel2.label" default="Level1" /></th>
-					
+						<g:sortableColumn property="name" title="机构类型" class="alink"/>
+						<th style="color:white">销售类别</th>
+					    <th>是否有子元素</th>
 						<th style="color:white">操作</th>
 					
 					</tr>
@@ -76,6 +77,7 @@
 						--%><td>${fieldValue(bean: customerTypeLevel2Instance, field: "name")}</td>
 					
 						<td>${customerTypeLevel2Instance?.level1?.name}</td>
+						<td>${customerTypeLevel2Instance?.isHasChild == true ?"是":"否" }</td>
 					    <td>
 					    <a href="${createLink(action:'delete',controller:'customerTypeLevel2',id:customerTypeLevel2Instance.id)}" params="${params }" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="删除机构类型"></span></a>
 		 

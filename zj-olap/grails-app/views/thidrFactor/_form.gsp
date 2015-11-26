@@ -9,7 +9,8 @@
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-8">
-	      <g:select name="branch.id" noSelection="['': '全省']" default="none" from="${Branch.list() }" optionKey="id" optionValue="name" value="${thidrFactorInstance?.branch}" class="form-control"/>
+	      <g:select name="branch.id" noSelection="['': '全省']"  from="${com.surelution.zjolap.Branch.list() }" optionKey="id" optionValue="name" value="${thidrFactorInstance?.branch?.id}" class="form-control"/>
+	     
 	      </div>
 	   </dd>
 	</dl>	
@@ -23,7 +24,7 @@
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-8">
-	      <g:textField name="influncedAt" value="${thidrFactorInstance?.influncedAt?.format("yyyy-MM-dd")}" id="datetimepicker1" class="form-control"/>
+	      <g:textField name="influncedAt" value="${thidrFactorInstance?.influncedAt?.format("yyyy-MM-dd")}" id="datetimepicker1" class="form-control" required=""/>
 	      <script type="text/javascript">
                 $('#datetimepicker1').datetimepicker({
                 	isRTL: false,

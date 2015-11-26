@@ -9,8 +9,17 @@
 		<span class="required-indicator">*</span>
 	</label></dt>
 	   <dd>
-	      <div class="col-xs-10">
-	     <g:datePicker name="from" precision="day"  value="${priceInstance?.from}" class="form-control" />
+	      <div class="col-xs-9">
+	     <%--<g:datePicker name="from" precision="day"  value="${priceInstance?.from}" class="form-control" />--%>
+	       <g:textField name="from" value="${priceInstance?.from?.format("yyyy-MM-dd hh:mm")}" id='datetimepicker' class="form-control"/>
+						<script type="text/javascript">
+                $('#datetimepicker').datetimepicker({
+                	isRTL: false,
+                    format: 'yyyy-mm-dd hh:ii',
+                    autoclose:true,                 
+                    language: 'zh-CN'
+					});
+        </script>
 	      </div>
 	   </dd>
 	</dl>	

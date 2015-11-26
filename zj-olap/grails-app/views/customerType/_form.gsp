@@ -9,7 +9,7 @@
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-3">
-	  <g:textField name="name" value="${customerTypeInstance?.name}" class="many-to-one form-control" style="width:150px;"/>
+	  <g:textField name="name" value="${customerTypeInstance?.name}" class="many-to-one form-control" style="width:150px;" required=""/>
 	      </div>
 	   </dd>
 	</dl>

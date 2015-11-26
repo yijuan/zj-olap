@@ -35,14 +35,14 @@
 					回访方式设置<small></small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 销售类别</a></li>
+					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 系统设置</a></li>
 					<li class="active">回访方式设置</li>
 				</ol>
 				</section>
 	<section class="content">
 	<div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-			<g:link class="create" action="create" data-toggle="modal" data-target="#myModal"><g:message code="default.new.label" args="[entityName]" /></g:link>
+			<g:link class="create" action="create" data-toggle="modal" data-target="#myModal">新增回访方式</g:link>
 			<!-- 新增台账的dialog -->	
 			 <div class="modal fade" id="myModal" role="dialog">
                      <div class="modal-dialog">
@@ -55,7 +55,7 @@
           <g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<h4><g:message code="default.list.label" args="[entityName]" /></h4>
+			<h4>回访方式列表</h4>
 			
 			<table class="table table-bordered  table-striped">
 				<thead>

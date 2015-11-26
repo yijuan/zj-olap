@@ -2,12 +2,35 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="jarvis">
+	<%--<meta name="layout" content="jarvis">--%>
 		<g:set var="entityName" value="${message(code: 'customer.label', default: 'Customer')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
 	<body>
-	<div class="content-wrapper">
+	 <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">更新客户</h4>
+        </div>
+        
+        <g:uploadForm method="post" >
+		<div class="modal-body">
+				<g:hiddenField name="id" value="${customerInstance?.id}" />
+				<g:hiddenField name="version" value="${customerInstance?.version}" />
+				<fieldset class="form">
+					<g:render template="form"/> 				
+				</fieldset>
+		 </div>	
+		 <div class="modal-footer">		
+				<fieldset class="buttons">
+				    <g:actionSubmit class="save btn btn-primary" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+					<g:actionSubmit class="save btn btn-primary" action="updateD" value="临时保存" />
+					<button type="button" class="btn btn-default" data-dismiss="modal" >取消</button>
+				</fieldset>
+		</div>
+			</g:uploadForm>
+        
+	
+	<%--<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
@@ -53,5 +76,5 @@
 		</div>
 		</section>
 		</div>
-	</body>
+	--%></body>
 </html>

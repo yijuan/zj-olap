@@ -89,19 +89,21 @@
 						<script type="text/javascript">
                 $('#datetimepicker').datetimepicker({
                 	isRTL: false,
-                    format: 'yyyy.mm.dd hh:ii',
+                    format: 'yyyy.mm.dd',
+                    minView: 'month',
                     autoclose:true,
                     language: 'zh-CN'
 					});
         </script>
 						</div>
-						<div class="col-xs-1">~</div>
-						<div class="col-xs-5">
+						<div class="col-xs-1" style="margin-left:-20px;">~</div>
+						<div class="col-xs-5" style="margin-left:-30px;">
 						<g:textField name="dateEnd" value="${params.dateEnd}"  id="datetimepicker1" class="form-control"/>
 						<script type="text/javascript">
                 $('#datetimepicker1').datetimepicker({
                 	isRTL: false,
-                    format: 'yyyy.mm.dd hh:ii',
+                    format: 'yyyy.mm.dd',
+                    minView: 'month',
                     autoclose:true,
                     language: 'zh-CN'
 					});
@@ -125,7 +127,7 @@
 					
 					</div>
 					</div>
-			<h2><g:message code="default.list.label" args="[entityName]" /></h2>
+			<h3><g:message code="default.list.label" args="[entityName]" /></h3>
 			<g:if test="${flash.message}">
 			<div class="message" role="status" style="color:red; font-weight:bold;">${flash.message}</div>
 			</g:if>
@@ -191,8 +193,9 @@
 						</td>
 						</sec:ifAnyGranted>
 						
-						<g:if test="${customerStockInstance?.status =='DISABLE'}">
+						
 						<td>
+						<g:if test="${customerStockInstance?.status =='DISABLE'}">
 					      <a href="${createLink(action:'delete',controller:'customerStock',id:customerStockInstance.id)}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="删除提货单"></span></a>
 		 
 		&nbsp;&nbsp;
@@ -200,9 +203,9 @@
 		 <g:link rel="external" action="edit" id="${customerStockInstance?.id}" params="${params }" data-toggle="modal" data-target="#customerModal">
 		 <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="更新提货单"></span></g:link>
 					    
-					    
+					    </g:if>
 					    </td>
-						</g:if>
+						
 					</tr>
 				</g:each>
 				</tbody>

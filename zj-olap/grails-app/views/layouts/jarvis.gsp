@@ -24,6 +24,7 @@
 <script src="${resource(dir:'jarvis/js',file:'bootstrap-datetimepicker.min.js') }"></script>
 <script src="${resource(dir:'jarvis/js',file:'bootstrap-datetimepicker.zh-CN.js') }"></script>
 <script src="${resource(dir:'jarvis/js',file:'jquery-ui.min.js') }"></script>
+<script src="${resource(dir:'jarvis/js',file:'jquery.cookie.js') }"></script>
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,16 +34,18 @@
   <![endif]-->
   <g:layoutHead/>
   
+  <style type="text/css">
+     .current{ background-color:red;}
+  </style>
 </head>
 <script type="text/javascript">
     $(document).ready(function(){
-          $("#alink").click(function(){
-              $("#dropdown-menu").toggle();
-              })
+         $(".treeview").click(function(){
+               $(".treeview-menu li a").click(function(){              
+            	   $.cookie("navstation", $(this).html(), { path: "/" });
+                   })
+             })
         })
-        
-        
-
 </script>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -92,9 +95,9 @@
           </li>
 								
 						<!-- Control Sidebar Toggle Button -->
-						<li><a href="#" data-toggle="control-sidebar"><i
+						<%--<li><a href="#" data-toggle="control-sidebar"><i
 								class="fa fa-gears"></i></a></li>
-					</ul>
+					--%></ul>
 				</div>
 			</nav>
 		</header>
@@ -143,16 +146,11 @@
 							<span>警告</span> <i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
 							<li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="warningRule">警告规则</g:link></li>
-			                <li class="treeview"><a href="#"><i class="fa fa-circle-thin"></i>
-							       <span>客户警告</span> <i class="fa fa-angle-left pull-right"></i></a>
-			                       <ul class="treeview-menu">
-			                           <li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="warningRuleToBranchCustomer">设置客户警告</g:link></li>
-			                           <li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="warningRule" action="listBaseStockWarning">保底客存警告</g:link></li>
-			                           <li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="warningRule" action="listDaysStockWarning">超期未提油警告</g:link></li>
-			                           <li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="warningRule" action="listDaysSalesOrderWarning">超期无订单警告</g:link></li>
-			                       </ul>
-			                </li>
-						</ul></li>
+			                <li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="warningRuleToBranchCustomer">设置客户警告</g:link></li>
+			                <li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="warningRule" action="listBaseStockWarning">保底客存警告</g:link></li>
+			                <li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="warningRule" action="listDaysStockWarning">超期未提油警告</g:link></li>
+			                <li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="warningRule" action="listDaysSalesOrderWarning">超期无订单警告</g:link></li>       
+						</ul>
 					<!-- 一个导航链接结束 -->
 					
 					<!-- 一个导航链接开始 -->
@@ -225,7 +223,7 @@
 		</footer>
 
 		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
+		<%--<aside class="control-sidebar control-sidebar-dark">
 			<!-- Tab panes -->
 			<div class="tab-content">
 				<!-- Home tab content -->
@@ -235,7 +233,7 @@
 				</div>
 		   </div>
 		</aside>
-		<!-- /.control-sidebar -->
+		--%><!-- /.control-sidebar -->
 		<!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
 		<div class="control-sidebar-bg"></div>
@@ -246,6 +244,16 @@
 
 	<!-- jQuery 2.1.4 -->
 	<br>
-	
+	<script type="text/javascript">
+         var navstation = $.cookie("navstation");
+        if(navstation != null){
+            $(".treeview-menu li a").each(function(){
+            if($(this).html() == navstation){
+               $(this).parent().parent().css("display","block");
+              
+        }
+    });
+}
+</script>
 </body>
 </html>

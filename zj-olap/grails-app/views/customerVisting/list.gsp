@@ -100,9 +100,9 @@
 		<g:message code="customerVisting.customer.label" default="Customer" />
 	</label></dt>
 	                           <dd>
-	                               <div class="col-md-2" style="margin-left:-10px;">
-	                              
-	                                 <g:textField id="comauto" name="customer"  value="${params?.customer }"  class="form-control" style="width:170px;"/>
+	                               <div class="col-md-3" style="margin-left:-10px;">
+	                                 <g:textField id="comauto" name="customer"  value="${params?.customer }"  class="form-control"/>
+	                                 <g:hiddenField name="customer.id" id="customer.id"/>
 	                               </div>
 	                            </dd>
 	                        </dl>
@@ -114,8 +114,8 @@
 		<g:message code="customerVisting.sales.label" default="Sales" />
 	</label></dt>
 	                           <dd>
-	                               <div class="col-md-2" style="margin-left:-10px;">
-	                              <g:select id="sales" name="sales.id" from="${sales?sales:Sales.list()}" noSelection="['':'']" optionKey="id" optionValue="${{ (it.branch?it.branch.name:"") + "->" + it.name} }" value="${customerVistingInstance?.sales?.id}" class="form-control" style="width:170px;"/>
+	                               <div class="col-md-3" style="margin-left:-10px;">
+	                              <g:select id="sales" name="sales.id" from="${sales?sales:Sales.list()}" noSelection="['':'']" optionKey="id" optionValue="${{ (it.branch?it.branch.name:"") + "->" + it.name} }" value="${customerVistingInstance?.sales?.id}" class="form-control" />
 	                               </div>
 	                            </dd>
 	                        </dl>
@@ -134,23 +134,25 @@
 	                           <dd>
 	                              
 	                               <div class="col-xs-4" style="margin-left:-10px;">
-	                               <g:textField name="vistingAtFrom" value="${params?.vistingAtFrom}" id="datetimepicker" class="form-control" style="width:170px;"/>
-						 <script type="text/javascript">
+	                               <g:textField name="vistingAtFrom"  value="${params.vistingAtFrom}" id='datetimepicker' class="form-control" style="width:145px;"/>
+						<script type="text/javascript">
                 $('#datetimepicker').datetimepicker({
                 	isRTL: false,
                     format: 'yyyy.mm.dd hh:ii',
                     autoclose:true,
+                  
                     language: 'zh-CN'
 					});
         </script>
 						</div>
 						<div class="col-xs-1" style="margin-left:-30px;">~</div>
 						<div class="col-xs-4" style="margin-left:-30px;">
-						<g:textField name="vistingAtTo" value="${params?.vistingAtTo}" id="datetimepicker1"  class="form-control" style="width:170px;"/>
+						<g:textField name="vistingAtTo" value="${params.vistingAtTo}" id='datetimepicker4' class="form-control"/>
 						 <script type="text/javascript">
-                $('#datetimepicker1').datetimepicker({
+                $('#datetimepicker4').datetimepicker({
                 	isRTL: false,
-                    format: 'yyyy.mm.dd hh:ii',
+                	format: 'yyyy.mm.dd hh:ii',
+                   
                     autoclose:true,
                     language: 'zh-CN'
 					});
@@ -183,9 +185,9 @@
 					
 						<th><g:message code="customerVisting.type.label" default="Type" /></th>
 					
-						<g:sortableColumn property="vistingAt" title="${message(code: 'customerVisting.vistingAt.label', default: 'Visting At')}" class="alink"/>
-					
-						<g:sortableColumn property="description" title="${message(code: 'customerVisting.description.label', default: 'Description')}" class="alink"/>
+					    <th><g:message code= "customerVisting.vistingAt.label" default= "Visting At"/></th>
+					    
+					    <th><g:message code="customerVisting.description.label" default="Description"/></th>
 					
 						<th><g:message code="customerVisting.operator.label" default="Operator" /></th><%--
 					   <th>操作</th>

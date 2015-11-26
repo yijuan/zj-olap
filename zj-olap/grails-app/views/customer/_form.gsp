@@ -1,7 +1,7 @@
 <%@page import="com.surelution.zjolap.CustomerTypeLevel3"%>
 <%@ page import="com.surelution.zjolap.Customer" %>
 <%@page import="com.surelution.zjolap.CustomerType"%>
-<r:require module="jquery-ui"/>
+
 <script type="text/javascript">
 	$(document).ready(function()
 	    {
@@ -86,7 +86,7 @@
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-8">
-	     <g:textField name="name" value="${customerInstance?.name}" class="form-control"/>
+	     <g:textField name="name" value="${customerInstance?.name}" class="form-control" required=""/>
 	      </div>
 	   </dd>
 	</dl>	
@@ -100,7 +100,7 @@
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-8">
-	    <g:textField name="address" value="${customerInstance?.address}" class="form-control"/>
+	    <g:textField name="address" value="${customerInstance?.address}" class="form-control" required=""/>
 	      </div>
 	   </dd>
 	</dl>	
@@ -114,7 +114,7 @@
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-8">
-	    <g:textField name="tel" value="${customerInstance?.tel}" class="form-control"/>
+	    <g:textField name="tel" value="${customerInstance?.tel}" class="form-control" required=""/>
 	      </div>
 	   </dd>
 	</dl>	

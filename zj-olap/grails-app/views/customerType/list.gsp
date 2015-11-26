@@ -34,7 +34,7 @@
 					销售类别 <small></small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 销售类别</a></li>
+					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 系统设置</a></li>
 					<li class="active">销售类别管理</li>
 				</ol>
 				</section>
@@ -61,6 +61,7 @@
 					<tr>
 					
 						<th style="color:white"><g:message code="customerType.name.label" default="Name" /></th>
+					     <th>是否有子元素</th>
 					   <th style="color:white">操作</th>
 					</tr>
 				</thead>
@@ -68,6 +69,7 @@
 				<g:each in="${customerTypeInstanceList}" status="i" var="customerTypeInstance">
 					<tr>
 						<td>${fieldValue(bean: customerTypeInstance, field: "name")}</td>
+					    <td>${customerTypeInstance.isHasChild == true ? '是':'否'}</td>
 					   <td>
 					   
 					    <a href="${createLink(action:'delete',controller:'customerType',id:customerTypeInstance.id)}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="删除销售类别"></span></a>

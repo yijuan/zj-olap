@@ -6,7 +6,7 @@
     	$("#opener").autocomplete({		
     		  source: function(request, response){
     		   $.ajax({		  			
-    		    url: "${createLink(action:'selector',controller:'customer')}", // remote datasource
+    		    url: "${createLink(action:'customerBranchSelector',controller:'customer')}", // remote datasource
     		    data: request,
     		    success: function(data){
     		     response(data); // set the response

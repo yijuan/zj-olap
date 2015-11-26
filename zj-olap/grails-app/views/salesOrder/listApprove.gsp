@@ -311,8 +311,9 @@
 							
 						</td>
 						</sec:ifAnyGranted>
-						<g:if test="${salesOrderInstance?.status =='DISABLE'}">
+						
 						<td>
+						<g:if test="${salesOrderInstance?.status =='DISABLE'}">
 					      <a href="${createLink(action:'delete',controller:'salesOrder',id:salesOrderInstance.id)}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="删除销售台账"></span></a>
 		 
 		&nbsp;&nbsp;
@@ -320,9 +321,9 @@
 		 <g:link rel="external" action="edit" id="${salesOrderInstance?.id}" params="${params }" data-toggle="modal" data-target="#customerModal">
 		 <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="更新销售台账"></span></g:link>
 					    
-					    
+					    </g:if>
 					    </td>
-						</g:if>
+						
 					</tr>
 				</g:each>
 				</tbody>

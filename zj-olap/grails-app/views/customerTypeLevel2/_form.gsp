@@ -24,7 +24,7 @@
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-11">
-	      <g:textField name="name" value="${customerTypeLevel2Instance?.name}" class="many-to-one form-control"/>
+	      <g:textField name="name" value="${customerTypeLevel2Instance?.name}" class="many-to-one form-control" required=""/>
 	      </div>
 	   </dd>
 	</dl>

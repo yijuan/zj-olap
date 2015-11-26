@@ -98,10 +98,12 @@
 						<g:sortableColumn property="tel" title="${message(code: 'customer.tel.label', default: 'tel')}" params="${params}" class="alink"/>
 					   <g:sortableColumn property="customerType" title="${message(code: 'customer.customerType.label', default: 'customerType')}" params="${params}" class="alink"/>
 					    <g:sortableColumn property="branch" title="提报分公司" params="${params}" class="alink"/>
+					    
+					   
 					     <th>
 					    	警告
 					    </th>
-					    
+					 
 					   <%--<sec:ifAnyGranted roles="ROLE_ADMIN">
 					      <th>操作</th>
 					   </sec:ifAnyGranted>
@@ -111,13 +113,14 @@
 				<tbody>
 				<g:each in="${customerInstanceList}" status="i" var="customerInstance">
 					<tr>
-						<td><g:link action="show" target='_blank' id="${customerInstance.customer.id}">${fieldValue(bean: customerInstance.customer, field: "name")}</g:link></td>
+						<td><g:link action="show" id="${customerInstance.customer.id}">${fieldValue(bean: customerInstance.customer, field: "name")}</g:link></td>
 						
 						<td>${fieldValue(bean: customerInstance.customer, field: "tel")}</td>
 						
 						<td>${customerInstance.customer?.customerType.name}</td>
 						
 						<td>${customerInstance.branch?.name}</td>
+						
 						
 						<td>
 							<g:link controller="warningRuleToBranchCustomer"  action="listByCustomer"  params='[customerId:"${customerInstance.customer.id}"]'>警告设置</g:link>

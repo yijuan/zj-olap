@@ -33,7 +33,7 @@
 	<section class="content">
 	<div class="box box-info">
                 <div class="box-header with-border">
-                 <h3><g:message code="default.list.label" args="[entityName]" /></h3>
+                 <h4>客户查询</h4>
                 </div>
                 <div class="box-body">	
 		<g:if test="${flash.message}">
@@ -97,9 +97,14 @@
 					var="customerInstance">
 					<tr>
 						<td>
+						   <g:if test="${customerInstance?.status !='DISABLE'}">
+						       ${fieldValue(bean: customerInstance, field: "name")}
+						   </g:if>
+						   <g:else>
 						    <g:link action="show" target='_blank' id="${customerInstance.id}">
 							${fieldValue(bean: customerInstance, field: "name")}
 							</g:link>
+							</g:else>
 						</td>
 
 						<td>
@@ -131,9 +136,9 @@
 						</td>
 
 						 <sec:ifAnyGranted roles="ROLE_ADMIN">
-						 <g:if test="${customerInstance?.status !='DISABLE' && customerInstance?.status !='ADDD'}">
+						 
 						<td style="width:30%;">
-						
+						<g:if test="${customerInstance?.status !='DISABLE' && customerInstance?.status !='ADDD'}">
 						    
 						    <g:form action="saveApprove" method="post">
 						       <g:hiddenField name="id" value="${customerInstance.id}"/>
@@ -144,11 +149,9 @@
 						    <div class="col-md-6"><g:textField name="reason" value="${customerInstance.reason}" class="form-control"/></div>
 						    </g:form>
 							
-							
-								
-							
-							</td>
 							</g:if>
+							</td>
+							
 							</sec:ifAnyGranted>
 						     
 						 

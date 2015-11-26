@@ -34,7 +34,7 @@
 					到位价管理<small></small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 销售类别</a></li>
+					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i>系统设置</a></li>
 					<li class="active">到位价管理</li>
 				</ol>
 				</section>
