@@ -9,6 +9,7 @@ class SalingType {
 
     static constraints = {
 		name unique:true
+		name nullable:true
     }
     
     String name

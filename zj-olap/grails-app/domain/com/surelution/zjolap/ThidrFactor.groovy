@@ -4,6 +4,7 @@ class ThidrFactor {
 
     static constraints = {
 		branch nullable:true
+		influncedAt nullable:true
     }
 
 	static mapping = {
