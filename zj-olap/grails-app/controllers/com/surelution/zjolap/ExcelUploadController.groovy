@@ -7,13 +7,17 @@ import java.text.SimpleDateFormat
 
 import org.apache.poi.hssf.usermodel.HSSFCell
 import org.apache.poi.hssf.usermodel.HSSFRow
+import org.apache.poi.hssf.usermodel.HSSFSheet
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.ss.usermodel.Cell
+import org.apache.poi.ss.usermodel.Row
 import org.springframework.dao.DataIntegrityViolationException
 
 class ExcelUploadController {
 
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def springSecurityService
+	def blankRow
 
 	def index() {
 		redirect(action: "list", params: params)
@@ -311,11 +315,13 @@ class ExcelUploadController {
 		def excelMessages = []
 		def salesOrders = []
 		def filePath = grailsApplication.config.excel.importer.file.location
-		def destPath = "${filePath}${UUID.randomUUID().toString()}"
+		def destPath = "${filePath}${UUID.randomUUID().toString()}" //文件路径
 		println destPath
 
 		def excelFile = request.getFile('excelFile')
-
+		
+		
+		
 		excelFile.transferTo(new File(destPath))
 		
 		def datamonth = params.excelMonth;
@@ -351,6 +357,8 @@ class ExcelUploadController {
 			def firstRowNum = sheet.firstRowNum
 			def lastRowNum = sheet.lastRowNum
 			def predefinedFirstRowNum = 1
+			
+		//	boolean blankRow = true
 
 			def validateFMonthSet  = new HashSet<String>();
 			if(firstRowNum != 0) {
@@ -359,35 +367,56 @@ class ExcelUploadController {
 				excelMessages.add(soe)
 			}
 			Price.updateCache()
-			(predefinedFirstRowNum .. lastRowNum ).each {num ->
+			
+			
+			
+			(predefinedFirstRowNum .. lastRowNum ).each {num ->		
+				def row = sheet.getRow(num)				
+				validateRow(row)				
+				if(blankRow==true){
+					
+				}else{
 				println num
-				def row = sheet.getRow(num)
-				def companyName = row.getCell(getCellPosition('A'))?.getStringCellValue()?.trim();
-				if(!companyName) {
-					return
-				}
+			   def companyName = row.getCell(getCellPosition('A'))?.getStringCellValue()?.trim();				
+	           if(companyName.equals("") || companyName==null){
+			       excelMessages.add(new ExcelInformationVo(row:num, column:'A', message:'分公司名称为空！'))
+			       return
+		       }
+				
 				//TODO
 				//validate验证单行数据
 				validateSalesOrder(row,excelMessages,num)
-			}
+			
 			//validate验证单行数据
-
+			}}
 			if (!excelMessages.isEmpty() ) {
 				render(view: "createSalesOrder", model: [excelMessages:excelMessages])
 				return
 			}
-
+            
+			
 			(predefinedFirstRowNum .. lastRowNum ).each {num ->
+				def row = sheet.getRow(num)				
+				validateRow(row)				
+				if(blankRow==true){
+					if(num!=lastRowNum){
+					   sheet.shiftRows(num+1,lastRowNum,-1)
+					   sheet.removeRow(row)
+					}
+					if(num==lastRowNum){
+						sheet.shiftRows(num-1, lastRowNum, -1)
+						sheet.removeRow(row)
+					}
+					def os = new FileOutputStream(destPath)
+					workbook.write(os)
+				}else{
 				println num
-				def row = sheet.getRow(num)
 				def companyName = row.getCell(getCellPosition('A'))?.getStringCellValue()?.trim();
-				if(!companyName) {
-					return
-				}
+				 if(companyName.equals("") || companyName==null){
+			           excelMessages.add(new ExcelInformationVo(row:num, column:'A', message:'分公司名称为空！'))
+			           return
+		         }
 				//TODO
-
-
-
 				def branch = Branch.findByName(companyName)
 
 				if(!branch) {
@@ -764,7 +793,7 @@ class ExcelUploadController {
 					excelUploadInstance.month = fMonth
 				}
 
-			}
+			}}
 
 			/**
 			 * 验证账期，每次上传只能是同一个账期
@@ -817,6 +846,7 @@ class ExcelUploadController {
 	private def validateSalesOrder(HSSFRow row,excelMessages,num) {
 		//0.分公司是否存在
 		def companyName = row.getCell(getCellPosition('A'))?.getStringCellValue()?.trim()
+		
 		def  branch = Branch.findByName(companyName)
 		if(!branch) {
 			excelMessages.add(new ExcelInformationVo(row:num, column:'A', message:'公司名称不对，请确认公司名称名称是否与系统中的名称完全一致'))
@@ -1175,5 +1205,41 @@ class ExcelUploadController {
 		return
 
 
+	}
+	
+	private def validate(HSSFWorkbook workbook){
+		def sheet = workbook.getSheetAt(0)
+		Iterator<Row> rowIterator = sheet.iterator()
+		boolean blankRow
+		while(rowIterator.hasNext()) {
+			blankRow = true
+			Row row = rowIterator.next();
+			 
+			//For each row, iterate through each columns
+			Iterator<Cell> cellIterator = row.cellIterator();
+			while(cellIterator.hasNext()) {
+				def cell = cellIterator.next();
+				if(cell.cellType != Cell.CELL_TYPE_BLANK) {
+					blankRow = false    //当表格一行有一个单元格不为空的时候判断这一行不为空
+					break
+				}
+			}
+			
+		}
+		return blankRow
+	}
+	
+	
+	private def validateRow(HSSFRow row){
+		Iterator<Cell> cellIterator = row.cellIterator();
+		blankRow = true
+		while(cellIterator.hasNext()) {
+			def cell = cellIterator.next();
+			if(cell.cellType != Cell.CELL_TYPE_BLANK) {
+				blankRow = false    //当表格一行有一个单元格不为空的时候判断这一行不为空
+				break
+			}
+		}
+		return blankRow
 	}
 }
