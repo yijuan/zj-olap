@@ -63,7 +63,7 @@ class FileUploadController {
             return
         }
 
-        flash.message = message(code: 'default.created.message', args: [message(code: 'fileUpload.label', default: 'FileUpload'), fileUploadInstance.id])
+        flash.message = message(code: 'default.created.message', args: [message(code: 'fileUpload.label', default: '附件'), fileUploadInstance.id])
         redirect(action: "list", params:p )
     }
 

@@ -80,7 +80,7 @@ list-style-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAA
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-10">
-	      <input id="opener" value="${warningRuleToBranchCustomerInstance?.customerBranch?.customer?.name }" class="form-control">
+	      <input id="opener" value="${warningRuleToBranchCustomerInstance?.customerBranch?.customer?.name }" class="form-control" required="">
 	      <input type="hidden" name="customerBranch.id" id="customerBranch.id" value="${warningRuleToBranchCustomerInstance?.customerBranch?.id }"/>
 	      </div>
 	   </dd>

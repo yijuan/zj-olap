@@ -13,11 +13,11 @@
 				<h1>
 					修改密码<small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 修改密码</a></li>
 					<li class="active"></li>
 				</ol>
-				</section>
+				--%></section>
 				<g:if test="${flash.message}">
 			<div class="message" role="status" style="color:red;font-weight:bold;">${flash.message}</div>
 			</g:if>
@@ -29,11 +29,11 @@
 			</ul>
 			</g:hasErrors>
 	<section class="content">
-	<div class="box box-info">
+	<div class="box box-info"><%--
                 <div class="box-header with-border">
                   <h4>修改密码</h4>
                 </div>
-                <div class="box-body">	
+                --%><div class="box-body">	
 			<g:form method="post" >
 				<g:hiddenField name="id" value="${userInstance?.id}" />
 				<g:hiddenField name="version" value="${userInstance?.version}" />

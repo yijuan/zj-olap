@@ -64,11 +64,11 @@
 				<h1>
 					客户 <small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 客户</a></li>
 					<li class="active">客户回访记录</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 	         <div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>

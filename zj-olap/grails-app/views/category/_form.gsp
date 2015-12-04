@@ -10,7 +10,7 @@
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-8">
-	      <g:textField name="name" value="${categoryInstance?.name}" class="form-control"/>
+	      <g:textField name="name" value="${categoryInstance?.name}" class="form-control" required=""/>
 	      </div>
 	   </dd>
 	</dl>	

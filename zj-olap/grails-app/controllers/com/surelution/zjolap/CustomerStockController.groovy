@@ -42,12 +42,15 @@ class CustomerStockController {
 		if(params.dateBegin) {
 			try{
 				dateBegin = sdf.parse(params.dateBegin)
+				
+				
 			}catch(e){
 			}
 		}
 		if(params.dateEnd) {
 			try{
 				dateEnd = sdf.parse(params.dateEnd)
+				
 			}catch(e){
 			}
 		}

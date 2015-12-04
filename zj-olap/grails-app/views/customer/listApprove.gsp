@@ -25,11 +25,11 @@
 				<h1>
 					客户管理审批 <small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 客户</a></li>
 					<li class="active">客户管理审批</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 	<div class="box box-info">
                 <div class="box-header with-border">

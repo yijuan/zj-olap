@@ -162,11 +162,11 @@
 				<h1>
 					销售台账 <small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 台账</a></li>
 					<li class="active">销售台账</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 
 		<div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
@@ -313,8 +313,6 @@
 			
 			<div id="divCols" style="width: 2000px;"></div>
 			
-			
-
 			<div class="tab" style="width: 2000px;">
 				<table class="table table-bordered  table-striped" >
 					<thead>
@@ -433,20 +431,23 @@
 									${salesOrderInstance?.salingtype?.id?.intValue() == 1 ? "是":"否"}
 								</td>
 								
+								
 								 <td>
+								 <g:if test="${salesOrderInstance?.status =='ABLE' && salesOrderInstance?.isClosed==false}">
+								 <g:if test="${!SalesOrder.findByUpdateFrom(salesOrderInstance.id) }">
 					      <a href="${createLink(action:'delete',controller:'salesOrder',id:salesOrderInstance.id)}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="删除销售台账"></span></a>
 		 
 		&nbsp;&nbsp;
 		
+		
 		 <g:link rel="external" action="edit" id="${salesOrderInstance?.id}" params="${params }" data-toggle="modal" data-target="#customerModal">
 		 <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="更新销售台账"></span></g:link>
-					    
-					    
+		   </g:if> 
+		    </g:if>
 					    </td>
 								
-								
 							</tr>
-						</g:each>
+						</g:each>      
 					</tbody>
 				</table>
 				 <div class="modal" id="customerModal" role="dialog">

@@ -53,11 +53,11 @@
 				<h1>
 					关闭账期 <small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 台账</a></li>
 					<li class="active">关闭账期</li>
 				</ol>
-		   </section>
+		   --%></section>
 	<section class="content">
 	
 	<div class="box box-info">

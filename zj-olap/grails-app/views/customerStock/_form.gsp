@@ -72,7 +72,7 @@
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-8">
-	      <g:field name="stockQty" value="${fieldValue(bean: customerStockInstance, field: 'stockQty')}" required="" class="form-control"/>
+	         <g:field name="stockQty" value="${customerStockInstance?.stockQty}"  class="form-control" type=""/>
 	      </div>
 	   </dd>
 	</dl>

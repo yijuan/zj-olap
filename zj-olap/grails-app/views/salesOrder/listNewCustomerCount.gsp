@@ -15,11 +15,11 @@
 				<h3>
 					客户 <small></small>
 				</h3>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 客户</a></li>
 					<li class="active">新客户数量</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 	<div class="box box-info">
                 <div class="box-header with-border">

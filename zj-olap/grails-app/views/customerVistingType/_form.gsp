@@ -10,7 +10,12 @@
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-8">
-	      <g:textField name="name" value="${customerVistingTypeInstance?.name}" class="form-control" required=""/>
+	         <g:if test="${customerVistingTypeInstance.name}">
+	           <g:textField name="name" id="name" value="${customerVistingTypeInstance.name}" class="form-control" required="" />
+	        </g:if>
+	        <g:else>
+	             <g:textField name="name" id="name" class="form-control" required=""/>
+	        </g:else>
 	      </div>
 	   </dd>
 	</dl>	
@@ -29,4 +34,6 @@
 	   </dd>
 	</dl>		
 </div>
+
+
 

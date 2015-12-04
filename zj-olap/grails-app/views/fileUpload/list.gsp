@@ -22,7 +22,7 @@
 	<section class="content">
 	    <div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-			<g:link class="create" action="create" params="${[fromID:params.fromID,useOpter:params.useOpter]}" data-toggle="modal" data-target="#myModal"><g:message code="default.new.label" args="[entityName]" /></g:link>
+			<g:link class="create" action="create" params="${[fromID:params.fromID,useOpter:params.useOpter]}" data-toggle="modal" data-target="#myModal">新增附件</g:link>
 			<!-- 新增台账的dialog -->	
 			 <div class="modal fade" id="myModal" role="dialog">
                      <div class="modal-dialog">
@@ -37,7 +37,7 @@
 			<span class="menuButton"><g:link class="create" action="create" params="${[fromID:params.fromID,useOpter:params.useOpter]}"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
 		</div>
 		--%><div id="list-fileUpload" class="content scaffold-list" role="main">
-			<h4><g:message code="default.list.label" args="[entityName]" /></h4>
+			<h4>附件列表</h4>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

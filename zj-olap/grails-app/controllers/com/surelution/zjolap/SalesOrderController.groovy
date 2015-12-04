@@ -21,7 +21,7 @@ class SalesOrderController {
 	def index() {
 		redirect(action: "list", params: params)
 	}
-
+         
 	def list(Integer max) {
 		
 		if(params["downExcelFile"]) {
@@ -301,7 +301,7 @@ class SalesOrderController {
 		params.max = Math.min(max ?: 10, 100)
 		def branch, salingAtFrom, salingAtTo, orderFormNo = params.orderFormNo
 
-		def sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm")
+		def sdf = new SimpleDateFormat("yyyy.MM.dd")
 
 		if(params['branch.id']) {
 			branch = Branch.get(params['branch.id'])
@@ -485,8 +485,8 @@ class SalesOrderController {
 
 		def user = springSecurityService.currentUser
 		def loginBranch = user.branch
-
-
+		//salesOrderInstance.updateFrom = salesOrderInstance.id
+		
 
 		if (!salesOrderInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [
@@ -578,9 +578,10 @@ class SalesOrderController {
 
 			//如果是审批未通过的 直接在这上面改
 			if(salesOrderInstance.status == SalesOrder.STATUS_DISABLE ) {
+				salesOrderInstance.properties = params
 				salesOrderInstance.optionValue = SalesOrder.OPTION_VALUE_UPDATE
 				salesOrderInstance.status = SalesOrder.STATUS_UPDATE
-
+                salesOrderInstance.isVail = true
 
 				def cal = Calendar.instance
 				cal.time = params.salingAt
@@ -602,10 +603,24 @@ class SalesOrderController {
 
 				def customerBranch= CustomerBranch.create(salesOrderInstance.customer, salesOrderInstance.branch, salesOrderInstance.timeByDay)
 				salesOrderInstance.customerBranch = customerBranch
-
+                //salesOrderInstance.updateFrom = id
+				
+                /*salesOrderInstance.salingtype = SalingType.get(params.salingtype.id)
+				salesOrderInstance.customer= Customer.get(params.customer.id)
+				salesOrderInstance.orderFormNo= params.orderFormNo
+				salesOrderInstance.purchasingUnitPrice = params.purchasingUnitPrice
+				salesOrderInstance.quantity=params.quantity
+				salesOrderInstance.sales = Sales.get(params.sales.id)
+				salesOrderInstance.gasType = GasType.get(params.gasType.id)*/
+				
+				
+				
+				//salesOrderInstance.updateFrom = salesOrderInstance.id
+				
+				
 				salesOrderInstance.save(flush: true)
-
-
+                  
+                 
 				flash.message = message(code: 'default.updated.message', args: [
 					message(code: 'salesOrder.label', default: 'SalesOrder'),
 					salesOrderInstance.id
@@ -614,10 +629,7 @@ class SalesOrderController {
 				redirect(action: "list")
 
 			} else {
-
-
 				def order = new SalesOrder()
-
 				order.properties = salesOrderInstance.properties
 				order.properties = params
 				order.optionValue = SalesOrder.OPTION_VALUE_UPDATE
@@ -655,19 +667,13 @@ class SalesOrderController {
 				 }*/
 				order.save(flush: true)
 
-
 				flash.message = message(code: 'default.updated.message', args: [
 					message(code: 'salesOrder.label', default: 'SalesOrder'),
 					order.id
 				])
 			//	redirect(action: "show", id: order.id)
 				redirect(action: "list",params:[max:params.max,offset:params.offset])
-
-
 			}
-
-
-
 		}
 
 
@@ -751,14 +757,25 @@ class SalesOrderController {
 		}
 	}
 
-
+    
+	/**
+	 * 审批同意的时候，是新创建的数据还是旧数据修改
+	 * @param id
+	 * @return
+	 */
 	def saveApprove(Long id) {
 		def orderAppor =  SalesOrder.get(id)
 
 		def oldOrder
-		if(orderAppor){
+		if(orderAppor.updateFrom!=null || orderAppor.updateFrom!=""){
 			//updateFrom 为空值
 			def oldId = orderAppor.updateFrom
+			//def oldId = orderAppor.id
+			
+			/*if(!oldId){
+				oldId = id
+			}*/
+			
 			def operMethod = orderAppor.status
 
 			if(oldId) {
@@ -777,14 +794,15 @@ class SalesOrderController {
 				def customerB = CustomerBranch.create(orderAppor.customer, orderAppor.branch, orderAppor.timeByDay)
 				orderAppor.customerBranch =  customerB
 				orderAppor.save(flush:true);
-
+                 
+				if(oldOrder){
          		oldOrder.isVail =  false
 				oldOrder.updateFrom = null
 
 				def customerBranch = CustomerBranch.create(oldOrder.customer, oldOrder.branch, oldOrder.timeByDay)
 				oldOrder.customerBranch =  customerBranch
 
-				oldOrder.save(flush: true)
+				oldOrder.save(flush: true)}
 			}else if (Customer.STATUS_DELETE == operMethod) {
 				oldOrder.status = SalesOrder.STATUS_ABLE
 				oldOrder.optionValue = SalesOrder.OPTION_VALUE_DELETE

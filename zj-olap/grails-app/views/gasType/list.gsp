@@ -33,11 +33,11 @@
 				<h1>
 					油品品号管理<small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 油品管理</a></li>
 					<li class="active">油品品号管理</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 		<div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>

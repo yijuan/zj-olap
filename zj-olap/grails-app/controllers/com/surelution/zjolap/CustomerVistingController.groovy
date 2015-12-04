@@ -69,7 +69,19 @@ class CustomerVistingController {
 
     def save() {
 		params.vistingAt = params.date('vistingAt', 'yyyy.MM.dd hh:mm')		
-        def customerVistingInstance = new CustomerVisting(params)		
+		
+		def customerId = params.customer.id
+		
+		if(customerId==null || customerId==""){
+			flash.message="请选择正确的用户!"
+			redirect(action:'list')
+		}else{
+		
+		println "bbbbbbbbbbb"+params.customer.id
+		
+        def customerVistingInstance = new CustomerVisting(params)	
+		
+		
 		customerVistingInstance.operator = springSecurityService.currentUser
         if (!customerVistingInstance.save(flush: true)) {
            // render(view: "create", model: [customerVistingInstance: customerVistingInstance])			
@@ -80,8 +92,9 @@ class CustomerVistingController {
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'customerVisting.label', default: 'CustomerVisting'), customerVistingInstance.id])
        // redirect(action: "show", id: customerVistingInstance.id)
-		redirect(action:'list')
+		redirect(action:'list')	}
     }
+    
 
     def show(Long id) {
         def customerVistingInstance = CustomerVisting.get(id)

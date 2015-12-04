@@ -127,11 +127,28 @@
   	 		}
 	    </script>
 	    
-	    <style type="text/css">
-	       .alink a{ color: white;}
-	    
-	    </style>
+	    <script type="text/javascript">
+		 $(document).ready(function() {
+			   $("a[data-target=#customerModal]").click(function(event) {
+							$(this).data('customerModal',null)
+						    event.preventDefault();
+						    var target = $(this).attr("href"); 
+							    $("#customerModal").load(target, function() { 
+							       $("#customerModal").addClass("modalstyle")      
+				                   $("#customerModal").modal('show');  			    	
+						    });
+		    
+		});		
+		   })   
+
+		</script>
+		
+		<style type="text/css">
+		    .modalstyle{ width: 40%; background-color:#F5F5F5;filter:alpha(opacity=50); margin-left:30%; height:95%; margin-top:5%; border-radius:5px; border: 1px solid #C5CBD7;margin-top:-10px;}
+		    .alink a{ color: white;}
+		</style>
 	</head>
+	
 	<body >
 	<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
@@ -139,11 +156,11 @@
 				<h1>
 					台账审批 <small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 台账</a></li>
 					<li class="active">台账审批</li>
 				</ol>
-		   </section>
+		   --%></section>
 	<section class="content">		
 		
 		
@@ -201,9 +218,9 @@
 						<script type="text/javascript">
                 $('#datetimepicker').datetimepicker({
                 	isRTL: false,
-                	format: 'yyyy.mm.dd hh:ii',
+                	format: 'yyyy.mm.dd',
                     autoclose:true,
-                   
+                    minView: 'month',
                     language: 'zh-CN'
 					});
         </script>
@@ -214,9 +231,9 @@
 						<script type="text/javascript">
                 $('#datetimepicker1').datetimepicker({
                 	isRTL: false,
-                	format: 'yyyy.mm.dd hh:ii',
+                	format: 'yyyy.mm.dd',
                     autoclose:true,
-                   
+                    minView: 'month',
                     language: 'zh-CN'
 					});
         </script>
@@ -240,8 +257,8 @@
 			<h3><g:message code="default.list.label" args="[entityName]" /></h3>
 			
 			<div id="divCols" style="width:1800px;"></div>
-			<div class="tab" class="scaffold-list">
-			<table class="table table-bordered  table-striped" style="width: 1800px;">
+			<div class="tab" class="scaffold-list" style="width:1800px;">
+			<table class="table table-bordered  table-striped">
 				<thead style=" background-color: #36A9E0;">
 					<tr style="color:white;">
 						<th><g:message code="salesOrder.branch.label" default="Branch" /></th>

@@ -31,11 +31,11 @@
 				<h1>
 					销售数据列表 <small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 销售数据上传</a></li>
 					<li class="active">上传列表</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 		 <div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
             <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
@@ -107,6 +107,7 @@
 						--%>
 						<g:sortableColumn property="user" title="${message(code: 'excelUpload.branch.label', default: 'Branch')}" params="${params}" class="alink"/>
 						<g:sortableColumn property="month" title="${message(code: 'excelUpload.month.label', default: '账期')}" params="${params}" class="alink"/>
+						<th>文件名</th>
 						<g:sortableColumn property="user" title="${message(code: 'excelUpload.user.label', default: 'User')}" params="${params}" class="alink"/>
 						<g:sortableColumn property="uploadedAt" title="${message(code: 'excelUpload.uploadedAt.label', default: 'Uploaded At')}" params="${params}" class="alink"/>
 						<th>下载</th>
@@ -134,6 +135,7 @@
 							<td>总公司</td>
 						</g:else>
 						<td>${excelUploadInstance?.month?.year}-${excelUploadInstance?.month?.month} </td>
+						<td>${excelUploadInstance?.originalFileName}</td>
 						<td>${excelUploadInstance?.user?.username} </td>
 						
 						<td><g:formatDate date="${excelUploadInstance.uploadedAt}" /></td>

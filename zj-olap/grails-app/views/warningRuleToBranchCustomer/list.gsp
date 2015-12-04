@@ -32,11 +32,11 @@
 				<h1>
 					设置客户警告 <small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 警告</a></li>
 					<li class="active">设置客户警告</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 	    <div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
@@ -52,7 +52,7 @@
        </div>
 	    
 		<div id="list-warningRuleToBranchCustomer" class="content scaffold-list">
-			<h4><g:message code="default.list.label" args="[entityName]" /></h4>
+			<h4>客户警告列表</h4>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

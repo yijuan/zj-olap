@@ -12,11 +12,11 @@
 				<h1>
 					提货数据上传 <small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 数据上传</a></li>
 					<li class="active">提货数据上传</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 	<sec:ifAnyGranted roles="ROLE_ADMIN">
 	    <div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">

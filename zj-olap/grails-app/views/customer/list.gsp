@@ -41,11 +41,11 @@
 				<h1>
 					客户管理 <small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 客户</a></li>
 					<li class="active">客户管理</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 		<div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
@@ -99,16 +99,12 @@
 					   <g:sortableColumn property="customerType" title="${message(code: 'customer.customerType.label', default: 'customerType')}" params="${params}" class="alink"/>
 					    <g:sortableColumn property="branch" title="提报分公司" params="${params}" class="alink"/>
 					    
-					   
+					   <sec:ifNotGranted roles="ROLE_ADMIN" >
 					     <th>
 					    	警告
 					    </th>
-					 
-					   <%--<sec:ifAnyGranted roles="ROLE_ADMIN">
-					      <th>操作</th>
-					   </sec:ifAnyGranted>
-					     
-					--%></tr>
+					 </sec:ifNotGranted>
+					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${customerInstanceList}" status="i" var="customerInstance">
@@ -121,11 +117,11 @@
 						
 						<td>${customerInstance.branch?.name}</td>
 						
-						
+						<sec:ifNotGranted roles="ROLE_ADMIN" >
 						<td>
 							<g:link controller="warningRuleToBranchCustomer"  action="listByCustomer"  params='[customerId:"${customerInstance.customer.id}"]'>警告设置</g:link>
 						</td>
-						
+						</sec:ifNotGranted>
 						<%--<sec:ifAnyGranted roles="ROLE_ADMIN">
 						    <td>
 					      <a href="${createLink(action:'delete',controller:'customer',id:customerInstance.id)}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="删除销售台账"></span></a>

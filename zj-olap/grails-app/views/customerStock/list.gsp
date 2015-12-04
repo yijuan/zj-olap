@@ -42,11 +42,11 @@
 				<h1>
 					提货单 <small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 客存</a></li>
 					<li class="active">提货单</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 	           <div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
@@ -191,6 +191,7 @@
 						<td>${fieldValue(bean: customerStockInstance, field: "statusName")}</td>
 					    
 					    <td>
+					    <g:if test="${customerStockInstance?.status =='ABLE' && customerStockInstance?.isClosed==false}">
 					      <a href="${createLink(action:'delete',controller:'customerStock',id:customerStockInstance.id)}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="删除提油"></span></a>
 		 
 		&nbsp;&nbsp;
@@ -198,7 +199,7 @@
 		 <g:link rel="external" action="edit" id="${customerStockInstance?.id}" params="${params }" data-toggle="modal" data-target="#customerModal">
 		 <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="更新提油"></span></g:link>
 					    
-					    
+					    </g:if>
 					    </td>
 					</tr>
 				</g:each>

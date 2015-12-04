@@ -31,6 +31,11 @@
         })
 
 </script>
+    
+
+<script>
+        
+</script>
 
 <style type="text/css">
   .ui-autocomplete {
@@ -46,8 +51,8 @@
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-8">      
-	         <g:textField id="comauto1" name="comauto" class="form-control" value="${customerVistingInstance?.customer?.name }" autocomplete="on"/>     
-             <g:hiddenField name="customer.id"/>
+	         <g:textField id="comauto1" name="comauto" class="form-control" value="${customerVistingInstance?.customer?.name }" autocomplete="on" required=""/>     
+             <g:hiddenField name="customer.id" id="customer.id"/>
 	      </div>
 	   </dd>
 	</dl>		
@@ -90,7 +95,11 @@
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-8">
-	     <g:textField name="vistingAt" precision="day"  value="${customerVistingInstance?.vistingAt}" id="datetimepicker" class="form-control"  />
+	       
+	        <g:textField name="vistingAt" precision="day"  
+	         
+	            value="${customerVistingInstance?.vistingAt}" 
+	          id="datetimepicker" class="form-control"   required="" />
 	     <script type="text/javascript">
                 $('#datetimepicker').datetimepicker({
                 	isRTL: false,
@@ -99,6 +108,8 @@
                     language: 'zh-CN'
 					});
         </script>
+         
+        
 	      </div>
 	   </dd>
 	</dl>	

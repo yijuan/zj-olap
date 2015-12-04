@@ -14,11 +14,11 @@
 				<h1>
 					提货数据列表 <small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 提货数据上传</a></li>
 					<li class="active">上传列表</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 		 <div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
             <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>

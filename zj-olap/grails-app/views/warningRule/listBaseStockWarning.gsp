@@ -14,12 +14,12 @@
 				<h1>
 					保底客存警告 <small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 警告</a></li>
 					<li class="active">客户警告</li>
 					<li class="active">保底客存警告</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 	<div class="box box-info">
                 <div class="box-header with-border">

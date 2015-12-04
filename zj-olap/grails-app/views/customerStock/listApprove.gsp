@@ -45,11 +45,11 @@
 				<h1>
 					提货单审批 <small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 客存</a></li>
 					<li class="active">提货单审批</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 		<div class="box box-info">
                 <div class="box-header with-border">

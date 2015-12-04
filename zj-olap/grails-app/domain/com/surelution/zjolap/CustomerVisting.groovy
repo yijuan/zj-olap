@@ -3,6 +3,8 @@ package com.surelution.zjolap
 class CustomerVisting {
 
     static constraints = {
+		customer nullable:true
+		vistingAt nullable:true
     }
 	
 	static mapping = {

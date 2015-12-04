@@ -315,7 +315,7 @@ class ExcelUploadController {
 		def excelMessages = []
 		def salesOrders = []
 		def filePath = grailsApplication.config.excel.importer.file.location
-		def destPath = "${filePath}${UUID.randomUUID().toString()}" //文件路径
+		def destPath = "${filePath}${UUID.randomUUID().toString()}" //文件
 		println destPath
 
 		def excelFile = request.getFile('excelFile')
@@ -409,6 +409,7 @@ class ExcelUploadController {
 					}
 					def os = new FileOutputStream(destPath)
 					workbook.write(os)
+					//os.close();
 				}else{
 				println num
 				def companyName = row.getCell(getCellPosition('A'))?.getStringCellValue()?.trim();

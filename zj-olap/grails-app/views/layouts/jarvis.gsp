@@ -8,6 +8,9 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
+	<link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon">
+		<link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
+		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet"
@@ -35,15 +38,13 @@
   <g:layoutHead/>
   
   <style type="text/css">
-     .current{ background-color:red;}
+     .current{ font-weight:bold}
   </style>
 </head>
 <script type="text/javascript">
     $(document).ready(function(){
-         $(".treeview").click(function(){
-               $(".treeview-menu li a").click(function(){              
-            	   $.cookie("navstation", $(this).html(), { path: "/" });
-                   })
+         $(".treeview-menu li a").click(function(){
+            	   $.cookie("navstation", $(this).html(), { path: "/" });           	   
              })
         })
 </script>
@@ -113,8 +114,8 @@
 							<li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="salesOrder" action="list">销售台账</g:link></li>
 							<li><a href="#" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="salesOrder" action="listApprove">台账审批</g:link></li>
 							<sec:ifAnyGranted roles="ROLE_ADMIN">
-							<li><a href="#" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="salesOrder" action="changeFMstatusClose">关闭账期</g:link></li>
-				            <li><a href="#" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="salesOrder" action="changeFMstatusOpen">开启账期</g:link></li>
+							<li><a href="#" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="salesOrder" action="changeFMstatusClose">关闭台账账期</g:link></li>
+				            <li><a href="#" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="salesOrder" action="changeFMstatusOpen">开启台账账期</g:link></li>
 							</sec:ifAnyGranted>
 						</ul></li>
 					<!-- 一个导航链接结束 -->
@@ -126,8 +127,8 @@
 							<li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="customerStock" action="list">提货单</g:link></li>
 				            <li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="customerStock" action="listApprove">提货单审批</g:link></li>
 				            <sec:ifAnyGranted roles="ROLE_ADMIN">
-				            <li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="customerStock" action="changeFMstatusClose">关闭账期</g:link></li>
-				            <li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="customerStock" action="changeFMstatusOpen">开启账期</g:link></li>
+				            <li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="customerStock" action="changeFMstatusClose">关闭客存账期</g:link></li>
+				            <li><a href="" style="float:left;"><i class="fa fa-circle-thin"></i></a><g:link controller="customerStock" action="changeFMstatusOpen">开启客存账期</g:link></li>
 				            </sec:ifAnyGranted>
 						</ul></li>
 					<!-- 一个导航链接结束 -->
@@ -249,8 +250,10 @@
         if(navstation != null){
             $(".treeview-menu li a").each(function(){
             if($(this).html() == navstation){
-               $(this).parent().parent().css("display","block");
-              
+               $(this).parent().parent().css("display","block");   
+             //  $(".treeview-menu li a").removeClass("current")
+               $(this).addClass("current")
+               $(this).css("color","white")
         }
     });
 }

@@ -5,6 +5,8 @@
 		<g:set var="entityName" value="${message(code: 'customerVistingType.label', default: 'CustomerVistingType')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
+	
+	
 	<body>
 		<div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>

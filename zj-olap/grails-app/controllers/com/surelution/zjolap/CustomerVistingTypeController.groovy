@@ -77,13 +77,7 @@ class CustomerVistingTypeController {
 				  return
             }
         }
-        
-		def name = params.name
-		def cvt = CustomerVistingType.findByName(name)
-		if(cvt){
-			flash.message="该回访方式已经创建！请重新操作"
-			redirect(action:'list')
-		}else{
+      
 		customerVistingTypeInstance.properties = params
         if (!customerVistingTypeInstance.save(flush: true)) {
            // render(view: "edit", model: [customerVistingTypeInstance: customerVistingTypeInstance])
@@ -94,7 +88,7 @@ class CustomerVistingTypeController {
         flash.message = message(code: 'default.updated.message', args: [message(code: 'customerVistingType.label', default: 'CustomerVistingType'), customerVistingTypeInstance.id])
         //redirect(action: "show", id: customerVistingTypeInstance.id)
 		redirect(action:'list')
-      }
+       
     }
 
     def delete(Long id) {
@@ -116,4 +110,16 @@ class CustomerVistingTypeController {
 			redirect(action:'list')
         }
     }
+	
+	
+	def checkName(){
+		def name = params.name
+		println name
+		def cvt = CustomerVistingType.createCriteria().list {eq("name",name)}
+		if(cvt!=null && cvt.size()==0){
+			render false
+		}else{
+		    render true
+		}	
+	}
 }

@@ -34,7 +34,7 @@ class UserController {
 		
         if (!userInstance.save(flush: true)) {
             //render(view: "create", model: [userInstance: userInstance])
-			flash.message="用户名或者密码为空！"
+			flash.message="用户创建失败，请重新创建！"
 			redirect(action: "list")
             return
         }

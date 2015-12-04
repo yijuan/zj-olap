@@ -24,7 +24,7 @@
 	</label></dt>
 	   <dd>
 	      <div class="col-xs-8">
-	      <g:textField name="name" value="${gasTypeInstance?.name}" class="form-control"/>
+	      <g:textField name="name" value="${gasTypeInstance?.name}" class="form-control" required="" oninvalid="this.setCustomValidity('Please Enter valid email')"/>
 	      </div>
 	   </dd>
 	</dl>		

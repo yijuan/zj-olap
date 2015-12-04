@@ -33,11 +33,11 @@
 				<h1>
 				     分公司管理<small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 分公司管理</a></li>
 					<li class="active">分公司管理</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 			<h4><g:message code="default.list.label" args="[entityName]" /></h4>
 			<g:if test="${flash.message}">

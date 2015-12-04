@@ -33,11 +33,11 @@
 				<h1>
 					用户管理<small></small>
 				</h1>
-				<ol class="breadcrumb">
+				<%--<ol class="breadcrumb">
 					<li><a href="#" style="cursor: none;"><i class="fa fa-dashboard"></i> 分公司管理</a></li>
 					<li class="active">用户管理</li>
 				</ol>
-				</section>
+				--%></section>
 	<section class="content">
 		<div class="c1" style=" height: 30px; border-bottom: 1px solid #e5e5e5;margin-bottom:10px;">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
@@ -70,8 +70,9 @@
 						<g:sortableColumn property="enabled" title="${message(code: 'user.enabled.label', default: 'Enabled')}" />
 					
 						<g:sortableColumn property="passwordExpired" title="${message(code: 'user.passwordExpired.label', default: 'Password Expired')}" />
-					
+					   
 					--%>
+					<th>所属分公司</th>
 					  <th>操作</th>
 					</tr>
 				</thead>
@@ -91,6 +92,7 @@
 						<td><g:formatBoolean boolean="${userInstance.passwordExpired}" /></td>
 					
 					--%>
+					<td>${userInstance?.branch?.name }</td>
 					<td>
 					    <a href="${createLink(action:'delete',controller:'user',id:userInstance.id)}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="删除用户"></span></a>		 
 		&nbsp;&nbsp;		
